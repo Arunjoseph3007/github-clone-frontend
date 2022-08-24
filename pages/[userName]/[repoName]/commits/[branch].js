@@ -7,12 +7,12 @@ export default function CommitsPage({ data }) {
 
   return (
     <div>
-      <header className="p-3 text-xl">
+      <header className="p-7 text-xl">
         <h1>User name: {router.query.userName}</h1>
         <h1>Repo name: {router.query.repoName}</h1>
         <h1>Branch name: {router.query.branch}</h1>
       </header>
-      <div className="p-3 mx-5 w-full">
+      <div className="p-3 w-4/5 mx-auto">
         <CommitsList data={data} />
       </div>
     </div>

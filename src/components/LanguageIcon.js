@@ -16,4 +16,6 @@ const Devicons = {
   py: "python",
   c: "c",
   cpp: "cplusplus",
+  java: "java",
+  sh: "bash",
 };
