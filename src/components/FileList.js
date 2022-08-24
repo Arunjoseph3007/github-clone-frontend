@@ -1,7 +1,7 @@
-import { DocumentIcon } from "@/icons/documents";
 import { FolderIcon } from "@/icons/folder";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import LanguageIcon from "./LanguageIcon";
 
 export default function FileList({ data }) {
   const router = useRouter();
@@ -36,7 +36,7 @@ export default function FileList({ data }) {
         >
           <p className="w-20">{i + 1 + dirLen}</p>
           <span className="w-20">
-            <DocumentIcon />
+            <LanguageIcon name={file.name} />
           </span>
           <Link href={`/${userName}/${repoName}/blob/${branch}/${file.name}`}>
             <p className="w-1/2 cursor-pointer">{file.name.split("/").pop()}</p>
