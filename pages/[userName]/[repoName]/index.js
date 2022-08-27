@@ -1,11 +1,10 @@
-import FileViewer from "@/components/FileViewer";
-import { gitShow } from "@/utils/gitShow";
+import { gitLs } from "@/utils/gitLs";
 import { useRouter } from "next/router";
+import FileList from "@/components/FileList";
+import ReadmeViewer from "@/components/ReadmeViewer";
 
-export default function BlobPage({ data, fileName }) {
+export default function TreePage({ data }) {
   const router = useRouter();
-
-  const extenstion = fileName.split(".").pop();
 
   return (
     <div>
@@ -13,21 +12,21 @@ export default function BlobPage({ data, fileName }) {
         <h1>User name: {router.query.userName}</h1>
         <h1>Repo name: {router.query.repoName}</h1>
         <h1>Branch name: {router.query.branch}</h1>
-        <h1>file name: {fileName}</h1>
       </header>
-      <div className="p-3 w-full max-w-[1000px] mx-auto">
-        <FileViewer data={data} fileName={fileName} extension={extenstion} />
+      <div className="p-3 my-10 rounded-xl bg-neutral-focus w-full max-w-[1000px] mx-auto">
+        <FileList data={data} />
       </div>
+      <ReadmeViewer text={data.Readme} />
     </div>
   );
 }
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;
-  const filePath = ctx.params["path"].join("/");
-  const branch = ctx.params.branch;
+  const filePath = ".";
+  const branch = "main";
 
-  const { data, error } = gitShow(pathName, filePath, branch);
+  const { data, error } = gitLs(pathName, filePath, branch);
 
   if (error) {
     return {
@@ -38,7 +37,6 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       data,
-      fileName: ctx.params["path"].pop(),
     },
   };
 };

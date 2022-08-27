@@ -29,6 +29,7 @@ export default function CommitsList({ data }) {
             </div>
             <div className="btn-group">
               <button
+                onClick={() => handleCopyText(commit.objectId)}
                 className="btn tooltip tooltip-bottom"
                 data-tip="copy full SHA code"
               >
@@ -61,3 +62,5 @@ export default function CommitsList({ data }) {
     </div>
   );
 }
+
+const handleCopyText = (text) => navigator.clipboard.writeText(text);

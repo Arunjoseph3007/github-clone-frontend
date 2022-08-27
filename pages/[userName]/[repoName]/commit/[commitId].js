@@ -20,7 +20,7 @@ export default function CommitPage({ data }) {
           <p>
             {data.authorName}{" "}
             <span className="font-thin">
-              commited {format(data.authordate)}
+              commited {format(data.authorDate)}
             </span>
           </p>
         </div>

@@ -1,6 +1,6 @@
 const childProcess = require("child_process");
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY || "/home/anomander/Arun/";
+const rootUserDir = process.env.GIT_ROOT_DIRECTORY;
 
 export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
   try {
@@ -18,7 +18,8 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
     // 100644 blob 4ec18532d519f86d75d133eedec3fa8e6d4536fb	package.json
 
     let files = [],
-      dirs = [];
+      dirs = [],
+      Readme = null;
 
     const allFilesAndDirs = result.toString().split("\n");
 
@@ -39,7 +40,17 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
         }
       });
 
-    return { data: { files, dirs }, error: null };
+    const ReadmeFile = files.find(
+      (file) => file?.name?.toUpperCase() === "README.MD"
+    )?.objectId;
+
+    if (ReadmeFile) {
+      Readme = childProcess
+        .execSync(`git show ${ReadmeFile}`, { cwd: rootUserDir + repoPath })
+        .toString();
+    }
+
+    return { data: { files, dirs, Readme }, error: null };
   } catch (error) {
     return { data: null, error };
   }

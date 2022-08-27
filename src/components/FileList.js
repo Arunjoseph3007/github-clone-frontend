@@ -7,8 +7,8 @@ export default function FileList({ data }) {
   const router = useRouter();
   const len = data.files.length + data.dirs.length;
   const dirLen = data.dirs.length;
-
-  const { userName, repoName, branch, path } = router.query;
+  let { userName, repoName, branch } = router.query;
+  branch = branch ?? "main";
 
   return (
     <div className="table w-full">

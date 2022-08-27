@@ -14,7 +14,7 @@ export default function DiffSection({ section }) {
       <div className="mockup-code rounded-none mb-2 collapse-content">
         {section
           .split("\n")
-          .filter((a) => a)
+          .filter((a, i) => a && i)
           .map((line, i, arr) => (
             <pre
               style={{

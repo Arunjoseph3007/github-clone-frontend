@@ -18,4 +18,9 @@ const Devicons = {
   cpp: "cplusplus",
   java: "java",
   sh: "bash",
+  html: "html5",
+  css: "css3",
+  kt: "kotlin",
+  swift: "swift",
+  jl: "julia",
 };

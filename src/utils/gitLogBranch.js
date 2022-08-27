@@ -1,6 +1,6 @@
 const childProcess = require("child_process");
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY || "/home/anomander/Arun/";
+const rootUserDir = process.env.GIT_ROOT_DIRECTORY
 
 export const gitLogBranch = (repoPath, branch = "main") => {
   try {

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .debug{
+        @apply outline outline-red-500;
+    }
+}

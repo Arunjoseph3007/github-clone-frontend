@@ -1,11 +1,11 @@
 const childProcess = require("child_process");
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY 
+const rootUserDir = process.env.GIT_ROOT_DIRECTORY
 
-export const gitShow = (repoPath, filePath, branch = "main") => {
+export const gitType = (repoPath, filePath = "", branch = "main") => {
   try {
     const result = childProcess
-      .execSync(`git show ${branch}:${filePath}`, {
+      .execSync(`git cat-file -p ${branch}:${filePath}`, {
         cwd: rootUserDir + repoPath,
       })
       .toString();
