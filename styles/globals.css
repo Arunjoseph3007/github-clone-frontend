@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-    .debug{
-        @apply outline outline-red-500;
-    }
+@layer components {
+  .debug {
+    @apply outline outline-red-500;
+  }
+
+  .dead-center {
+    @apply flex items-center justify-center;
+  }
+
+  .fullscreen {
+    @apply w-screen h-screen;
+  }
 }

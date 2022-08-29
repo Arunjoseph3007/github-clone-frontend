@@ -1,8 +1,13 @@
+import BreadCrumbs from "./BreadCrumbs";
+
 export default function FileViewer({ fileName, extension, data }) {
   //$ For images
   if (["jpg", "png"].includes(extension)) {
     return (
       <div tabindex="1" class="collapse collapse-arrow p-0">
+        <div className="px-4">
+          <BreadCrumbs />
+        </div>
         <input type="checkbox" class="peer" />
         <div className="font-mono bg-neutral-focus mt-2 p-5 font-semibold rounded-t-md collapse-title ">
           <h1>Content in {fileName} is not text</h1>
@@ -26,17 +31,22 @@ export default function FileViewer({ fileName, extension, data }) {
   }
 
   return (
-    <div className="mockup-code">
-      {data.split("\n").map((line, i, arr) => (
-        <pre
-          style={{ color: `hsl(${(360 * i) / arr.length}, 50%, 65%)` }}
-          data-prefix={i}
-          key={i}
-        >
-          <code>{line}</code>
-        </pre>
-      ))}
-    </div>
+    <>
+      <div className="mockup-code">
+        <div className="px-4">
+          <BreadCrumbs />
+        </div>
+        {data.split("\n").map((line, i, arr) => (
+          <pre
+            style={{ color: `hsl(${(360 * i) / arr.length}, 50%, 65%)` }}
+            data-prefix={i}
+            key={i}
+          >
+            <code>{line}</code>
+          </pre>
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -40,8 +40,10 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
         }
       });
 
-    const ReadmeFile = files.find(
-      (file) => file?.name?.toUpperCase() === "README.MD"
+    const ReadmeFile = files.find((file) =>
+      ["README.MD", "README.MARKDOWN", "README.HTML"].includes(
+        file?.name?.toUpperCase()
+      )
     )?.objectId;
 
     if (ReadmeFile) {
