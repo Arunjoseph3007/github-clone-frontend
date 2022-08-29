@@ -1,5 +1,5 @@
 import Head from "next/head";
-
+import Link from "next/link";
 export default function Home() {
   return (
     <div>
@@ -12,22 +12,23 @@ export default function Home() {
       <div
         className="hero min-h-screen"
         style={{
-          backgroundImage: "url(https://placeimg.com/1000/800/arch)",
+          backgroundImage: "url(/background2.png)",
         }}
       >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Sasta Github</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
-            <button className="btn m-3">Signup</button>
+        <div className="hero"></div>
+        <div className="hero-content text-center text-neutral-content flex flex-col">
+          <div className="max-w-sm ">
+            <img src="logo3.png" className="max-w-sm rounded-lg" />
+            
           </div>
-        </div>
+          <p className="mb-5" style={{color:'black'}}>
+              Want a place to store files.  You are at correct Place!
+            </p>
+            <Link href={'/signup'}>
+              <button className="btn m-3" >Get Started</button>
+            
+            </Link>
+          </div>
       </div>
     </div>
   );
