@@ -9,9 +9,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>My Github</h1>
-      </main>
+      <div
+        className="hero min-h-screen"
+        style={{
+          backgroundImage: "url(https://picsum.photos/2000/?grayscale)",
+        }}
+      >
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-5 text-5xl font-bold">Sasta Github</h1>
+            <p className="mb-5">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+            <button className="btn btn-primary">Get Started</button>
+            <button className="btn m-3">Signup</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
