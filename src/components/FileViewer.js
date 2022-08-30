@@ -4,7 +4,7 @@ export default function FileViewer({ fileName, extension, data }) {
   //$ For images
   if (["jpg", "png"].includes(extension)) {
     return (
-      <div tabindex="1" class="collapse collapse-arrow p-0">
+      <div tabindex="1" className="collapse text-white collapse-arrow p-0">
         <div className="px-4">
           <BreadCrumbs />
         </div>
