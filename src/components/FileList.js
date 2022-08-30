@@ -17,8 +17,7 @@ export default function FileList({ data }) {
       <div className="table w-full">
         {data.dirs.map((dir, i) => (
           <div
-            style={{ color: `hsl(${(360 * i) / len},50%,50%)` }}
-            className="border-b border-gray-500 p-2 flex justify-around w-full"
+            className="border-b text-white border-gray-500 p-2 flex justify-around w-full"
             key={dir.objectId}
           >
             <p className="w-20">{i + 1}</p>
@@ -35,8 +34,7 @@ export default function FileList({ data }) {
         ))}
         {data.files.map((file, i) => (
           <div
-            style={{ color: `hsl(${(360 * (dirLen + i)) / len},50%,50%)` }}
-            className="border-b border-gray-500 p-2 flex justify-around w-full"
+            className="border-b text-white border-gray-500 p-2 flex justify-around w-full"
             key={file.objectId}
           >
             <p className="w-20">{i + 1 + dirLen}</p>
