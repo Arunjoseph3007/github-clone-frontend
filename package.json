@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "daisyui": "^2.24.0",
     "devicons": "^1.8.0",
     "next": "12.2.5",

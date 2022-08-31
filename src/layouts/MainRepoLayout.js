@@ -7,13 +7,16 @@ import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import { SettingsIcon } from "@/icons/settings";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
   const { query, asPath } = useRouter();
+  const [branches, setBranches] = useState([]);
   const basePath = `/${query.userName}/${query.repoName}/`;
 
   const getActiveTab = () => {
@@ -25,6 +28,10 @@ export default function MainRepoLayout(page) {
   };
 
   const activeTab = useMemo(() => getActiveTab(), [asPath]);
+
+  useEffect(() => {
+    axios.post("/api/hello", query).then((res) => setBranches(res.data));
+  }, []);
 
   return (
     <div>
@@ -97,6 +104,7 @@ export default function MainRepoLayout(page) {
 
           {/* //? Other section */}
           <div className="flex items-center justify-between py-4">
+            {/* //@ Branches */}
             <div className="flex gap-2 items-center">
               <div className="dropdown">
                 <label tabindex="0" className="btn gap-2 m-1">
@@ -110,20 +118,27 @@ export default function MainRepoLayout(page) {
                   <h1 className="font-semibold p-2">Switch Branches</h1>
                   <hr />
                   <ul>
-                    <li>
-                      <a>Item 1</a>
-                    </li>
-                    <li>
-                      <a>Item 2</a>
-                    </li>
+                    {branches.map((branch) => (
+                      <Link
+                        href={`${basePath}tree/${branch.name}`}
+                        key={branch.objectId}
+                      >
+                        <li>
+                          <a>{branch.name}</a>
+                        </li>
+                      </Link>
+                    ))}
                   </ul>
                 </div>
               </div>
               <h1 className="flex gap-2 items-center">
-                <BranchIcon />3<span className="text-secondary">branches</span>
+                <BranchIcon />
+                {branches.length}
+                <span className="text-secondary">branches</span>
               </h1>
             </div>
 
+            {/* //@ Copy link */}
             <div>
               <div className="dropdown dropdown-end">
                 <label tabindex="0" className="btn btn-success gap-2 m-1">
