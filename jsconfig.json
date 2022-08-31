@@ -7,6 +7,7 @@
         "@/context/*":["src/contexts/*"],
         "@/utils/*":["src/utils/*"],
         "@/lib/*":["src/lib/*"],
+        "@/layouts/*":["src/layouts/*"],
         "@/icons/*":["public/icons/*"],
       }
     }

@@ -2,17 +2,13 @@ import { gitLs } from "@/utils/gitLs";
 import { useRouter } from "next/router";
 import FileList from "@/components/FileList";
 import ReadmeViewer from "@/components/ReadmeViewer";
+import MainRepoLayout from "@/layouts/MainRepoLayout";
 
 export default function TreePage({ data }) {
   const router = useRouter();
 
   return (
     <div>
-      <header className="p-3 text-xl">
-        <h1>User name: {router.query.userName}</h1>
-        <h1>Repo name: {router.query.repoName}</h1>
-        <h1>Branch name: {router.query.branch}</h1>
-      </header>
       <div className="p-3 my-10 rounded-xl bg-neutral-focus w-full max-w-[1000px] mx-auto">
         <FileList data={data} />
       </div>
@@ -20,6 +16,8 @@ export default function TreePage({ data }) {
     </div>
   );
 }
+
+TreePage.getLayout = MainRepoLayout;
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;

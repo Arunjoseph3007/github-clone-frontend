@@ -1,3 +1,4 @@
+import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitGraph } from "@/utils/gitGraph";
 import { useRouter } from "next/router";
 
@@ -16,11 +17,6 @@ export default function GraphPage({ data }) {
 
   return (
     <div>
-      <header className="p-3 text-xl">
-        <h1>User name: {router.query.userName}</h1>
-        <h1>Repo name: {router.query.repoName}</h1>
-        <h1>Branch name: {router.query.branch}</h1>
-      </header>
       <div className="p-3 w-full max-w-[1000px] mx-auto">
         <div className="bg-neutral-focus p-4 font-mono mockup-code">
           {data
@@ -50,6 +46,8 @@ export default function GraphPage({ data }) {
     </div>
   );
 }
+
+GraphPage.getLayout = MainRepoLayout;
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;

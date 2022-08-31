@@ -1,3 +1,4 @@
+import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitShowBranches } from "@/utils/gitShowBranches";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,10 +9,6 @@ export default function BranchesPage({ data }) {
 
   return (
     <div>
-      <header className="p-3 text-xl">
-        <h1>User name: {router.query.userName}</h1>
-        <h1>Repo name: {router.query.repoName}</h1>
-      </header>
       <div className="p-3 my-10 rounded-xl bg-neutral-focus w-full max-w-[1000px] mx-auto">
         {data.map((branch, i) => (
           <div
@@ -32,6 +29,8 @@ export default function BranchesPage({ data }) {
     </div>
   );
 }
+
+BranchesPage.getLayout=MainRepoLayout
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;
