@@ -1,8 +1,8 @@
+import Navbar from "@/components/Navbar";
 import { BranchIcon } from "@/icons/branch";
 import { CodeIcon } from "@/icons/code";
-import { CommandLineIcon } from "@/icons/commandLins";
+import { CollaboratorsIcon } from "@/icons/collaborators";
 import { CommitIcon } from "@/icons/commit";
-import { CopyIcon } from "@/icons/copy";
 import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
@@ -10,31 +10,42 @@ import { SettingsIcon } from "@/icons/settings";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import { useMemo, useState } from "react";
+
+const PAGES = [
+  { title: "home", icon: <CodeIcon />, link: "" },
+  { title: "branches", icon: <BranchIcon />, link: "branches" },
+  { title: "commits", icon: <CommitIcon />, link: "commits/main" },
+  { title: "graph", icon: <GraphIcon />, link: "graph" },
+  {
+    title: "collaborators",
+    icon: <CollaboratorsIcon />,
+    link: "collaborators",
+  },
+  { title: "settings", icon: <SettingsIcon />, link: "settings" },
+];
 
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
   const { query, asPath } = useRouter();
-  const [branches, setBranches] = useState([]);
   const basePath = `/${query.userName}/${query.repoName}/`;
 
-  const getActiveTab = () => {
-    if (asPath.includes(basePath + "branches")) return "branches";
-    if (asPath.includes(basePath + "commits/")) return "commits";
-    if (asPath.includes(basePath + "settings")) return "settings";
-    if (asPath.includes(basePath + "graph")) return "graph";
+  const getActiveTab = (path) => {
+    if (path.includes(basePath + "branches")) return "branches";
+    if (path.includes(basePath + "collaborators")) return "collaborators";
+    if (path.includes(basePath + "commits/")) return "commits";
+    if (path.includes(basePath + "settings")) return "settings";
+    if (path.includes(basePath + "graph")) return "graph";
     return "home";
   };
 
-  const activeTab = useMemo(() => getActiveTab(), [asPath]);
-
-  useEffect(() => {
-    axios.post("/api/hello", query).then((res) => setBranches(res.data));
-  }, []);
+  const activeTab = useMemo(() => {
+    return getActiveTab(asPath);
+  }, [asPath, basePath]);
 
   return (
     <div>
+      <Navbar />
       <div>
         <section className="p-4">
           {/* //? Title section */}
@@ -50,135 +61,18 @@ export default function MainRepoLayout(page) {
 
           {/* //? Tabs */}
           <div className="tabs mt-4 border-b-4">
-            <Link href={basePath}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "home" && "tab-active"
-                }`}
-              >
-                <CodeIcon />
-                <span>Code</span>
-              </a>
-            </Link>
-            <Link href={basePath + "branches"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "branches" && "tab-active"
-                }`}
-              >
-                <BranchIcon />
-                <span>Branches</span>
-              </a>
-            </Link>
-            <Link href={basePath + "commits/main"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "commits" && "tab-active"
-                }`}
-              >
-                <CommitIcon />
-                <span>Commits</span>
-              </a>
-            </Link>
-            <Link href={basePath + "graph"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "graph" && "tab-active"
-                }`}
-              >
-                <GraphIcon />
-                <span>Graph</span>
-              </a>
-            </Link>
-            <Link href={basePath + "settings"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "settings" && "tab-active"
-                }`}
-              >
-                <SettingsIcon />
-                <span>Settings</span>
-              </a>
-            </Link>
-          </div>
-
-          {/* //? Other section */}
-          <div className="flex items-center justify-between py-4">
-            {/* //@ Branches */}
-            <div className="flex gap-2 items-center">
-              <div className="dropdown">
-                <label tabindex="0" className="btn gap-2 m-1">
-                  <BranchIcon />
-                  <span>Branch</span>
-                </label>
-                <div
-                  tabindex="0"
-                  className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box w-[20rem]"
+            {PAGES.map(({ icon: PageIcon, ...page }) => (
+              <Link href={basePath + page.link} key={page.title}>
+                <a
+                  className={`tab gap-2 px-4 text-lg ${
+                    activeTab === page.title && "tab-active"
+                  }`}
                 >
-                  <h1 className="font-semibold p-2">Switch Branches</h1>
-                  <hr />
-                  <ul>
-                    {branches.map((branch) => (
-                      <Link
-                        href={`${basePath}tree/${branch.name}`}
-                        key={branch.objectId}
-                      >
-                        <li>
-                          <a>{branch.name}</a>
-                        </li>
-                      </Link>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <h1 className="flex gap-2 items-center">
-                <BranchIcon />
-                {branches.length}
-                <span className="text-secondary">branches</span>
-              </h1>
-            </div>
-
-            {/* //@ Copy link */}
-            <div>
-              <div className="dropdown dropdown-end">
-                <label tabindex="0" className="btn btn-success gap-2 m-1">
-                  <CodeIcon />
-                  <span>Code</span>
-                </label>
-                <div
-                  tabindex="0"
-                  className="dropdown-content menu p-2 shadow-xl border bg-base-100 rounded-box w-[20rem]"
-                >
-                  <div className="flex gap-2 items-center my-2">
-                    <CommandLineIcon />
-                    <h1 className="font-semibold p-2">Clone this repo</h1>
-                  </div>
-
-                  <hr />
-                  <h1 className="font-bold text-xl my-3">HTTP</h1>
-                  <div className="form-control">
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        value={`http://gitbase.com${basePath.slice(0, -1)}.git`}
-                        readOnly
-                        className="input input-bordered"
-                      />
-                      <button
-                        onClick={() =>
-                          navigator.clipboard.writeText(
-                            `http://gitbase.com${basePath.slice(0, -1)}.git`
-                          )
-                        }
-                        className="btn btn-square"
-                      >
-                        <CopyIcon />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <span className="scale-75">{PageIcon}</span>
+                  <span className="capitalize">{page.title}</span>
+                </a>
+              </Link>
+            ))}
           </div>
         </section>
         {page}
