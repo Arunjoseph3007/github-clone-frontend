@@ -1,5 +1,7 @@
+import Navbar from "@/components/Navbar";
 import { BranchIcon } from "@/icons/branch";
 import { CodeIcon } from "@/icons/code";
+import { CollaboratorsIcon } from "@/icons/collaborators";
 import { CommitIcon } from "@/icons/commit";
 import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
@@ -10,6 +12,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 
+const PAGES = [
+  { title: "home", icon: <CodeIcon />, link: "" },
+  { title: "branches", icon: <BranchIcon />, link: "branches" },
+  { title: "commits", icon: <CommitIcon />, link: "commits/main" },
+  { title: "graph", icon: <GraphIcon />, link: "graph" },
+  {
+    title: "collaborators",
+    icon: <CollaboratorsIcon />,
+    link: "collaborators",
+  },
+  { title: "settings", icon: <SettingsIcon />, link: "settings" },
+];
+
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
   const { query, asPath } = useRouter();
@@ -17,6 +32,7 @@ export default function MainRepoLayout(page) {
 
   const getActiveTab = (path) => {
     if (path.includes(basePath + "branches")) return "branches";
+    if (path.includes(basePath + "collaborators")) return "collaborators";
     if (path.includes(basePath + "commits/")) return "commits";
     if (path.includes(basePath + "settings")) return "settings";
     if (path.includes(basePath + "graph")) return "graph";
@@ -29,6 +45,7 @@ export default function MainRepoLayout(page) {
 
   return (
     <div>
+      <Navbar />
       <div>
         <section className="p-4">
           {/* //? Title section */}
@@ -44,56 +61,18 @@ export default function MainRepoLayout(page) {
 
           {/* //? Tabs */}
           <div className="tabs mt-4 border-b-4">
-            <Link href={basePath}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "home" && "tab-active"
-                }`}
-              >
-                <CodeIcon />
-                <span>Code</span>
-              </a>
-            </Link>
-            <Link href={basePath + "branches"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "branches" && "tab-active"
-                }`}
-              >
-                <BranchIcon />
-                <span>Branches</span>
-              </a>
-            </Link>
-            <Link href={basePath + "commits/main"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "commits" && "tab-active"
-                }`}
-              >
-                <CommitIcon />
-                <span>Commits</span>
-              </a>
-            </Link>
-            <Link href={basePath + "graph"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "graph" && "tab-active"
-                }`}
-              >
-                <GraphIcon />
-                <span>Graph</span>
-              </a>
-            </Link>
-            <Link href={basePath + "settings"}>
-              <a
-                className={`tab gap-2 px-4 text-xl ${
-                  activeTab === "settings" && "tab-active"
-                }`}
-              >
-                <SettingsIcon />
-                <span>Settings</span>
-              </a>
-            </Link>
+            {PAGES.map(({ icon: PageIcon, ...page }) => (
+              <Link href={basePath + page.link} key={page.title}>
+                <a
+                  className={`tab gap-2 px-4 text-lg ${
+                    activeTab === page.title && "tab-active"
+                  }`}
+                >
+                  <span className="scale-75">{PageIcon}</span>
+                  <span className="capitalize">{page.title}</span>
+                </a>
+              </Link>
+            ))}
           </div>
         </section>
         {page}
