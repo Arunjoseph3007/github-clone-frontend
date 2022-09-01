@@ -1,4 +1,5 @@
 import CommitsList from "@/components/CommitsList";
+import RepoHeader from "@/components/RepoHeader";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitLogBranch } from "@/utils/gitLogBranch";
 import { useRouter } from "next/router";
@@ -8,6 +9,7 @@ export default function CommitsPage({ data }) {
 
   return (
     <div>
+      <RepoHeader />
       <div className="p-3 w-4/5 mx-auto">
         <CommitsList data={data} />
       </div>
@@ -15,7 +17,7 @@ export default function CommitsPage({ data }) {
   );
 }
 
-CommitsPage.getLayout=MainRepoLayout
+CommitsPage.getLayout = MainRepoLayout;
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;

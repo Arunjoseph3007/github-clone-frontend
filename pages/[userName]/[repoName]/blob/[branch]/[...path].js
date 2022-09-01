@@ -1,4 +1,5 @@
 import FileViewer from "@/components/FileViewer";
+import RepoHeader from "@/components/RepoHeader";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitShow } from "@/utils/gitShow";
 import { useRouter } from "next/router";
@@ -10,6 +11,7 @@ export default function BlobPage({ data, fileName }) {
 
   return (
     <div>
+      <RepoHeader />
       <div className="p-3 w-full max-w-[1000px] mx-auto">
         <FileViewer data={data} fileName={fileName} extension={extenstion} />
       </div>

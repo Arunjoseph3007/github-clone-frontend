@@ -1,4 +1,5 @@
 import DiffSection from "@/components/DiffSection";
+import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitShowCommit } from "@/utils/gitShowCommit";
 import { useRouter } from "next/router";
 import { format } from "timeago.js";
@@ -8,14 +9,9 @@ export default function CommitPage({ data }) {
 
   return (
     <div>
-      <header className="p-7 text-xl">
-        <h1>User name: {router.query.userName}</h1>
-        <h1>Repo name: {router.query.repoName}</h1>
-        <h1>Commit Id name: {router.query.commitId}</h1>
-      </header>
       <div className="p-3 w-4/5 mx-auto">
         {/* //? Head Section */}
-        <div className="bg-neutral-focus p-4 rounded-t-lg">
+        <div className="bg-neutral-focus p-4 rounded-t-lg text-white">
           <h1 className="font-semibold text-xl mb-4">{data.message}</h1>
           <p>
             {data.authorName}{" "}
@@ -36,6 +32,8 @@ export default function CommitPage({ data }) {
     </div>
   );
 }
+
+CommitPage.getLayout = MainRepoLayout;
 
 export const getServerSideProps = async (ctx) => {
   const pathName = `${ctx.params.userName}/${ctx.params.repoName}`;

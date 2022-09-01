@@ -1,8 +1,6 @@
 import { BranchIcon } from "@/icons/branch";
 import { CodeIcon } from "@/icons/code";
-import { CommandLineIcon } from "@/icons/commandLins";
 import { CommitIcon } from "@/icons/commit";
-import { CopyIcon } from "@/icons/copy";
 import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
@@ -10,28 +8,24 @@ import { SettingsIcon } from "@/icons/settings";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import { useMemo, useState } from "react";
 
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
   const { query, asPath } = useRouter();
-  const [branches, setBranches] = useState([]);
   const basePath = `/${query.userName}/${query.repoName}/`;
 
-  const getActiveTab = () => {
-    if (asPath.includes(basePath + "branches")) return "branches";
-    if (asPath.includes(basePath + "commits/")) return "commits";
-    if (asPath.includes(basePath + "settings")) return "settings";
-    if (asPath.includes(basePath + "graph")) return "graph";
+  const getActiveTab = (path) => {
+    if (path.includes(basePath + "branches")) return "branches";
+    if (path.includes(basePath + "commits/")) return "commits";
+    if (path.includes(basePath + "settings")) return "settings";
+    if (path.includes(basePath + "graph")) return "graph";
     return "home";
   };
 
-  const activeTab = useMemo(() => getActiveTab(), [asPath]);
-
-  useEffect(() => {
-    axios.post("/api/hello", query).then((res) => setBranches(res.data));
-  }, []);
+  const activeTab = useMemo(() => {
+    return getActiveTab(asPath);
+  }, [asPath, basePath]);
 
   return (
     <div>
@@ -100,85 +94,6 @@ export default function MainRepoLayout(page) {
                 <span>Settings</span>
               </a>
             </Link>
-          </div>
-
-          {/* //? Other section */}
-          <div className="flex items-center justify-between py-4">
-            {/* //@ Branches */}
-            <div className="flex gap-2 items-center">
-              <div className="dropdown">
-                <label tabindex="0" className="btn gap-2 m-1">
-                  <BranchIcon />
-                  <span>Branch</span>
-                </label>
-                <div
-                  tabindex="0"
-                  className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box w-[20rem]"
-                >
-                  <h1 className="font-semibold p-2">Switch Branches</h1>
-                  <hr />
-                  <ul>
-                    {branches.map((branch) => (
-                      <Link
-                        href={`${basePath}tree/${branch.name}`}
-                        key={branch.objectId}
-                      >
-                        <li>
-                          <a>{branch.name}</a>
-                        </li>
-                      </Link>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <h1 className="flex gap-2 items-center">
-                <BranchIcon />
-                {branches.length}
-                <span className="text-secondary">branches</span>
-              </h1>
-            </div>
-
-            {/* //@ Copy link */}
-            <div>
-              <div className="dropdown dropdown-end">
-                <label tabindex="0" className="btn btn-success gap-2 m-1">
-                  <CodeIcon />
-                  <span>Code</span>
-                </label>
-                <div
-                  tabindex="0"
-                  className="dropdown-content menu p-2 shadow-xl border bg-base-100 rounded-box w-[20rem]"
-                >
-                  <div className="flex gap-2 items-center my-2">
-                    <CommandLineIcon />
-                    <h1 className="font-semibold p-2">Clone this repo</h1>
-                  </div>
-
-                  <hr />
-                  <h1 className="font-bold text-xl my-3">HTTP</h1>
-                  <div className="form-control">
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        value={`http://gitbase.com${basePath.slice(0, -1)}.git`}
-                        readOnly
-                        className="input input-bordered"
-                      />
-                      <button
-                        onClick={() =>
-                          navigator.clipboard.writeText(
-                            `http://gitbase.com${basePath.slice(0, -1)}.git`
-                          )
-                        }
-                        className="btn btn-square"
-                      >
-                        <CopyIcon />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
         {page}
