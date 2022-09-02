@@ -49,7 +49,7 @@ export default function MainRepoLayout(page) {
       <div>
         <section className="p-4">
           {/* //? Title section */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 py-3 ">
             {isPublic ? <PublicIcon /> : <LockIcon />}
             <h1 className="text-2xl text-blue-500">
               <Link href={`/${query.userName}`}>{query.userName}</Link>
