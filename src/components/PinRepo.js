@@ -4,7 +4,7 @@ function PinRepo() {
   return (
     <>
       <div className="flex justify-center m-5 ">
-          <h3 className="font-serif text-2xl">Popular Repositories</h3>
+          <h3 className="font-serif text-2xl underline">Popular Repositories</h3>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className=" flex justify-end">
