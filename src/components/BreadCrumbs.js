@@ -7,7 +7,7 @@ export default function BreadCrumbs({ path }) {
   const baseUrl = `/${query.userName}/${query.repoName}/`;
 
   return (
-    <div className="breadcrumbs text-white pb-3 mb-3 border-b">
+    <div className="breadcrumbs z-10 bg-neutral-focus sticky top-0 text-white pb-3 mb-3 border-b">
       <ul>
         <li>
           <Link href={baseUrl}>

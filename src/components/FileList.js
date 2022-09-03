@@ -19,7 +19,9 @@ export default function FileList({ data }) {
         {/* //? Directories */}
         {data.dirs.map((dir, i) => (
           <div
-            className="border-b text-white border-gray-500 p-2 flex justify-between w-full"
+            className={`${
+              i !== len - 1 && "border-b"
+            } text-white border-gray-500 p-2 flex justify-between w-full`}
             key={dir.objectId}
           >
             <span className="w-10">
@@ -49,7 +51,9 @@ export default function FileList({ data }) {
         {/* //? Files */}
         {data.files.map((file, i) => (
           <div
-            className="border-b text-white border-gray-500 p-2 flex justify-between w-full"
+            className={`${
+              dirLen+ i !== len-1  && "border-b"
+            } text-white border-gray-500 p-2 flex justify-between w-full`}
             key={file.objectId}
           >
             <span className="w-10">
