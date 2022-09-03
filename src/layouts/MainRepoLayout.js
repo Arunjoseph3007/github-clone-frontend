@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { BranchIcon } from "@/icons/branch";
 import { CodeIcon } from "@/icons/code";
@@ -7,6 +8,7 @@ import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import { SettingsIcon } from "@/icons/settings";
+import { StarIcon } from "@/icons/star";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -49,14 +51,27 @@ export default function MainRepoLayout(page) {
       <div>
         <section className="p-4">
           {/* //? Title section */}
-          <div className="flex items-center gap-5 py-3 ">
-            {isPublic ? <PublicIcon /> : <LockIcon />}
-            <h1 className="text-2xl text-blue-500">
-              <Link href={`/${query.userName}`}>{query.userName}</Link>
-              <span> / </span>
-              <Link href={basePath}>{query.repoName}</Link>
-            </h1>
-            <span className="badge">{isPublic ? "Public" : "Private"}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-5 ">
+              {isPublic ? <PublicIcon /> : <LockIcon />}
+              <h1 className="text-2xl text-blue-500">
+                <Link href={`/${query.userName}`}>{query.userName}</Link>
+                <span> / </span>
+                <Link href={basePath}>{query.repoName}</Link>
+              </h1>
+              <span className="badge">{isPublic ? "Public" : "Private"}</span>
+            </div>
+
+            <div className="flex items-center gap-5 py-3 ">
+              <button className="btn gap-2">
+                <BranchIcon />
+                <span>fork</span>
+              </button>
+              <button className="btn gap-2">
+                <StarIcon />
+                <span>star</span>
+              </button>
+            </div>
           </div>
 
           {/* //? Tabs */}
@@ -77,6 +92,7 @@ export default function MainRepoLayout(page) {
         </section>
         {page}
       </div>
+      <Footer/>
     </div>
   );
 }

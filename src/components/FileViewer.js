@@ -1,3 +1,4 @@
+import { syntaxHighlight } from "@/libs/highlight";
 import BreadCrumbs from "./BreadCrumbs";
 
 export default function FileViewer({ fileName, extension, data }) {
@@ -32,17 +33,13 @@ export default function FileViewer({ fileName, extension, data }) {
 
   return (
     <>
-      <div className="mockup-code">
+      <div className="mockup-code [font-family:monospace_!important]">
         <div className="px-4">
           <BreadCrumbs />
         </div>
         {data.split("\n").map((line, i, arr) => (
-          <pre
-            style={{ color: `hsl(${(360 * i) / arr.length}, 50%, 65%)` }}
-            data-prefix={i}
-            key={i}
-          >
-            <code>{line}</code>
+          <pre data-prefix={i} key={i}>
+            <code dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
           </pre>
         ))}
       </div>

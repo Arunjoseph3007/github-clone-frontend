@@ -66,7 +66,7 @@ export default function RepoHeader() {
           </label>
           <div
             tabIndex="0"
-            className="dropdown-content menu p-2 shadow-xl border bg-base-100 rounded-box w-[20rem]"
+            className="dropdown-content menu p-2 shadow-xl border bg-base-100 rounded-box w-auto"
           >
             <div className="flex gap-2 items-center my-2">
               <CommandLineIcon />
@@ -81,7 +81,7 @@ export default function RepoHeader() {
                   type="text"
                   value={`http://gitbase.com${basePath.slice(0, -1)}.git`}
                   readOnly
-                  className="input input-bordered"
+                  className="input input-bordered max-w-md"
                 />
                 <button
                   onClick={() =>

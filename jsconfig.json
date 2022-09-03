@@ -6,7 +6,7 @@
         "@/hooks/*":["src/hooks/*"],
         "@/context/*":["src/contexts/*"],
         "@/utils/*":["src/utils/*"],
-        "@/lib/*":["src/lib/*"],
+        "@/libs/*":["src/libs/*"],
         "@/layouts/*":["src/layouts/*"],
         "@/icons/*":["public/icons/*"],
       }

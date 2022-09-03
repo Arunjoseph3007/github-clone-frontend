@@ -21,3 +21,13 @@
     @apply w-screen h-screen;
   }
 }
+
+pre > code,
+pre > code > span {
+  font-family: "Roboto Mono", "Sans Mono", "Consolas", "Courier", monospace;
+}
+pre::selection,
+pre > code::selection,
+pre > code > span::selection {
+  background-color: black;
+}
