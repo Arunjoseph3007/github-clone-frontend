@@ -11,9 +11,9 @@
   "dependencies": {
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",
-    "devicons": "^1.8.0",
     "highlight.js": "^11.6.0",
     "next": "12.2.5",
+    "nextjs-progressbar": "^0.0.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.3",

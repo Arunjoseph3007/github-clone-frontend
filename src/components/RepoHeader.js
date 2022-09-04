@@ -14,7 +14,7 @@ export default function RepoHeader() {
   const basePath = `/${query.userName}/${query.repoName}/`;
 
   useEffect(() => {
-    axios.post("/api/hello", query).then((res) => setBranches(res.data.filter(findUnique)));
+    axios.post("/api/hello", query).then((res) => setBranches(res.data));
   }, []);
 
   return (
@@ -37,7 +37,7 @@ export default function RepoHeader() {
               {branches.map((branch) => (
                 <Link
                   href={`${basePath}tree/${branch.name}`}
-                  key={branch.objectId}
+                  key={branch.name}
                 >
                   <li>
                     <a>{branch.name}</a>
