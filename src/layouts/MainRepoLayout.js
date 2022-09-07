@@ -39,7 +39,7 @@ export default function MainRepoLayout(page) {
     if (path.includes(basePath + "collaborators")) return "collaborators";
     if (path.includes(basePath + "commits/")) return "commits";
     if (path.includes(basePath + "settings")) return "settings";
-    if (path.includes(basePath + "pull")) return "pulls";
+    if (path.includes(basePath + "pull")) return "Pull requests";
     if (path.includes(basePath + "graph")) return "graph";
     return "home";
   };

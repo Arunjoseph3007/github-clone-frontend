@@ -1,12 +1,12 @@
-const childProcess = require("child_process");
+import { gitify } from "./gitify";
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY;
+const childProcess = require("child_process");
 
 export const gitShowBranches = (repoPath) => {
   try {
     const result = childProcess
       .execSync(`git branch -v`, {
-        cwd: rootUserDir + repoPath,
+        cwd: gitify(repoPath),
       })
       .toString();
 

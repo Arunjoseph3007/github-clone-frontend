@@ -1,6 +1,6 @@
-const childProcess = require("child_process");
+import { gitify } from "./gitify";
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY 
+const childProcess = require("child_process");
 
 export const gitShowCommit = (repoPath, commitId) => {
   try {
@@ -8,7 +8,7 @@ export const gitShowCommit = (repoPath, commitId) => {
       .execSync(
         `git show --pretty=format:"%H __||__ %s __||__ %ad __||__ %an __||__ %ae __||__ " ${commitId}`,
         {
-          cwd: rootUserDir + repoPath,
+          cwd: gitify(repoPath),
         }
       )
       .toString();

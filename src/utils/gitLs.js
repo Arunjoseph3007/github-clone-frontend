@@ -1,11 +1,11 @@
-const childProcess = require("child_process");
+import { gitify } from "./gitify";
 
-const rootUserDir = process.env.GIT_ROOT_DIRECTORY;
+const childProcess = require("child_process");
 
 export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
   try {
     const result = childProcess.execSync(`git ls-tree ${branch} ${dirPath}/`, {
-      cwd: rootUserDir + repoPath,
+      cwd: gitify(repoPath),
     });
 
     let files = [],
@@ -34,7 +34,7 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
     //@ Collecting history
     const historyResult = childProcess
       .execSync(cmdQuery, {
-        cwd: rootUserDir + repoPath,
+        cwd: gitify(repoPath),
       })
       .toString()
       .split("\n")
@@ -64,7 +64,7 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
 
     if (ReadmeFile) {
       Readme = childProcess
-        .execSync(`git show ${ReadmeFile}`, { cwd: rootUserDir + repoPath })
+        .execSync(`git show ${ReadmeFile}`, { cwd: gitify(repoPath) })
         .toString();
     }
 
