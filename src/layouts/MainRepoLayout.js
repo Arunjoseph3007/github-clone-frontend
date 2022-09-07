@@ -7,6 +7,7 @@ import { CommitIcon } from "@/icons/commit";
 import { GraphIcon } from "@/icons/graph";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
+import { PullRequestIcon } from "@/icons/pullrequest";
 import { SettingsIcon } from "@/icons/settings";
 import { StarIcon } from "@/icons/star";
 
@@ -17,6 +18,7 @@ import { useMemo, useState } from "react";
 const PAGES = [
   { title: "home", icon: <CodeIcon />, link: "" },
   { title: "branches", icon: <BranchIcon />, link: "branches" },
+  { title: "Pull requests", icon: <PullRequestIcon />, link: "pulls" },
   { title: "commits", icon: <CommitIcon />, link: "commits/main" },
   { title: "graph", icon: <GraphIcon />, link: "graph" },
   {
@@ -37,6 +39,7 @@ export default function MainRepoLayout(page) {
     if (path.includes(basePath + "collaborators")) return "collaborators";
     if (path.includes(basePath + "commits/")) return "commits";
     if (path.includes(basePath + "settings")) return "settings";
+    if (path.includes(basePath + "pull")) return "pulls";
     if (path.includes(basePath + "graph")) return "graph";
     return "home";
   };
@@ -92,7 +95,7 @@ export default function MainRepoLayout(page) {
         </section>
         {page}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
