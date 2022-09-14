@@ -1,11 +1,11 @@
 import MainRepoLayout from "@/layouts/MainRepoLayout";
 
-export default function SettingsPage() {
-  return (
-    <div>
-      <h1>settings page</h1>
-    </div>
-  );
+export default function SettingsPage({data}) {
+  return <div>SettingsPage</div>;
 }
 
 SettingsPage.getLayout = MainRepoLayout;
+
+export const getServerSideProps = async (ctx) => {
+  return { props: { data: null } };
+};

@@ -59,7 +59,7 @@ export default function MainRepoLayout(page) {
               {isPublic ? <PublicIcon /> : <LockIcon />}
               <h1 className="text-2xl text-blue-500">
                 <Link href={`/${query.userName}`}>{query.userName}</Link>
-                <span> / </span>
+                <span>/</span>
                 <Link href={basePath}>{query.repoName}</Link>
               </h1>
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
@@ -83,7 +83,8 @@ export default function MainRepoLayout(page) {
               <Link href={basePath + page.link} key={page.title}>
                 <a
                   className={`tab gap-2 px-4 text-lg ${
-                    activeTab === page.title && "tab-active"
+                    activeTab.toUpperCase() === page.title.toUpperCase() &&
+                    "tab-active"
                   }`}
                 >
                   <span className="scale-75">{PageIcon}</span>
