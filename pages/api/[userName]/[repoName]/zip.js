@@ -26,30 +26,27 @@ const childProcess = require("child_process");
 export default async function zip(req, res) {
   const { repoName, userName } = req.query;
 
-  console.log({repoName,userName});
+  console.log({ repoName, userName });
+
+  res.setHeader("Content-type", "application/zip");
+  res.setHeader("Content-disposition", `attachment; filename=${repoName}.zip`);
 
   try {
-    res.setHeader("Content-type", "application/zip");
-    res.setHeader(
-      "Content-disposition",
-      `attachment; filename=${repoName}.zip`
-    );
-
+    let result = [];
     const reader = childProcess.spawn("git", ["archive", "--format", "zip"], {
       cwd: gitify(userName + "/" + repoName),
     });
-    reader.pipe(res);
+    // reader.stdout.pipe(res);
 
-    reader.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
+    reader.stdout.on("data", (data) => {
+      console.log(`${data}`);
+      result.push(`${data}`);
+      res.write(`${data}`);
     });
-    
-    reader.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
-    });
-    
-    reader.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
+
+    reader.on("close", () => {
+      res.status(200);
+      res.end();
     });
   } catch (error) {
     return res.status(400).json({ error });
