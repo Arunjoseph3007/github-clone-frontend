@@ -16,7 +16,11 @@ export default function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  return <AuthContext.Provider>{loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user }}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useUser = () => useContext(AuthContext);

@@ -1,5 +1,14 @@
 import Link from "next/link";
+
 export default function Login() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    /*
+    @ handle login here
+    */
+  };
+  
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col ">
@@ -12,7 +21,7 @@ export default function Login() {
           <h1 className="text-xl font-bold">Sign-in to GitBase</h1>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <div className="card-body">
+          <form onSubmit={handleSubmit} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -21,6 +30,7 @@ export default function Login() {
                 type="text"
                 placeholder="email"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="form-control">
@@ -28,9 +38,10 @@ export default function Login() {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
                 placeholder="password"
                 className="input input-bordered"
+                required
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -50,7 +61,7 @@ export default function Login() {
                 </a>
               </Link>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
