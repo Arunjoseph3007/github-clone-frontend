@@ -8,6 +8,7 @@ export default function Signup() {
     userName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   //$ Change handler
@@ -103,6 +104,21 @@ export default function Signup() {
                 className="input input-bordered invalid:border-error"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,264}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                required
+              />
+            </div>
+
+            {/* //@ Confirm Password */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                onChange={handleChange}
+                name="confirmPassword"
+                className="input input-bordered invalid:border-error"
                 required
               />
             </div>
