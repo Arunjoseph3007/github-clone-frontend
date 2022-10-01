@@ -1,14 +1,35 @@
+import { useUser } from "@/context/userContext";
+import axios from "axios";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Login() {
-  const handleSubmit = (e) => {
+  const { setUser } = useUser();
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    password: "",
+  });
+  // @ Change handler
+  const handleChange = (e) =>
+    setUserDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  // @ Submit handler
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    /*
-    @ handle login here
-    */
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/accounts/register`,
+        userDetails
+      );
+
+      setUser(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col ">
@@ -30,8 +51,11 @@ export default function Login() {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
+                value={userDetails.email}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -43,6 +67,9 @@ export default function Login() {
               </label>
               <input
                 type="password"
+                name="password"
+                value={userDetails.password}
+                onChange={handleChange}
                 placeholder="password"
                 className="input input-bordered"
                 required

@@ -1,7 +1,10 @@
+import { useUser } from "@/context/userContext";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Signup() {
+  const { setUser } = useUser();
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
@@ -16,12 +19,27 @@ export default function Signup() {
     setUserDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   //$ Submit handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    /*
-      @ Handle submit here
-    */
+    if (userDetails.password !== userDetails.confirmPassword) return;
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/accounts/register`,
+        {
+          first_name: userDetails.firstName,
+          last_name: userDetails.lastName,
+          email: userDetails.email,
+          username: userDetails.userName,
+          password: userDetails.password,
+        }
+      );
+
+      setUser(res.data);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
