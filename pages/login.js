@@ -20,19 +20,23 @@ export default function Login() {
         <div className="text-center ">
           <h1 className="text-xl font-bold">Sign-in to GitBase</h1>
         </div>
+
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit} className="card-body">
+            {/* //@ Email */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="email"
                 className="input input-bordered"
                 required
               />
             </div>
+
+            {/* //@ */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
