@@ -107,12 +107,12 @@ export default function RepoLayoutWithBranches(page) {
             {/* //@ Branches */}
             <div className="flex gap-2 items-center">
               <div className="dropdown">
-                <label tabindex="0" className="btn gap-2 m-1">
+                <label tabIndex="0" className="btn gap-2 m-1">
                   <BranchIcon />
                   <span>Branch</span>
                 </label>
                 <div
-                  tabindex="0"
+                  tabIndex="0"
                   className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-box w-[20rem]"
                 >
                   <h1 className="font-semibold p-2">Switch Branches</h1>
@@ -141,12 +141,12 @@ export default function RepoLayoutWithBranches(page) {
             {/* //@ Copy link */}
             <div>
               <div className="dropdown dropdown-end">
-                <label tabindex="0" className="btn btn-success gap-2 m-1">
+                <label tabIndex="0" className="btn btn-success gap-2 m-1">
                   <CodeIcon />
                   <span>Code</span>
                 </label>
                 <div
-                  tabindex="0"
+                  tabIndex="0"
                   className="dropdown-content menu p-2 shadow-xl border bg-base-100 rounded-box w-[20rem]"
                 >
                   <div className="flex gap-2 items-center my-2">

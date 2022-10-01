@@ -35,10 +35,7 @@ export default function RepoHeader() {
             <hr />
             <ul>
               {branches.map((branch) => (
-                <Link
-                  href={`${basePath}tree/${branch.name}`}
-                  key={branch.name}
-                >
+                <Link href={`${basePath}tree/${branch.name}`} key={branch.name}>
                   <li>
                     <a>{branch.name}</a>
                   </li>
@@ -95,6 +92,15 @@ export default function RepoHeader() {
                 </button>
               </div>
             </div>
+
+            <form
+              action={`/api/${query.userName}/${query.repoName}/zip`}
+              method="get"
+            >
+              <button type="submit" className="btn">
+                Download zip
+              </button>
+            </form>
           </div>
         </div>
       </div>

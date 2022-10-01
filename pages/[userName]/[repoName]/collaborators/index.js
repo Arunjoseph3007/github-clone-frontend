@@ -123,9 +123,9 @@ export default function ColaboratorsPage() {
               </div>
               <div className="flex-1">
                 <Link href={`/${collaborator.userName}`}>
-                  <h1 className="font-semibold link link-hover">
+                  <a className="font-semibold link link-hover">
                     {collaborator.fullName}
-                  </h1>
+                  </a>
                 </Link>
                 <div className="flex items-center text-sm text-gray-600">
                   <h3>{collaborator.userName}</h3>
@@ -149,3 +149,8 @@ export default function ColaboratorsPage() {
 }
 
 ColaboratorsPage.getLayout = MainRepoLayout;
+
+//! To avoid Error
+export const getServerSideProps = async (ctx) => {
+  return { props: { data: null } };
+};

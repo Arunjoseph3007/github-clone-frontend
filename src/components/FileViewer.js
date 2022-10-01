@@ -5,11 +5,11 @@ export default function FileViewer({ fileName, extension, data }) {
   //$ For images
   if (["jpg", "png"].includes(extension)) {
     return (
-      <div tabindex="1" className="collapse text-white collapse-arrow p-0">
+      <div tabIndex="1" className="collapse text-white collapse-arrow p-0">
         <div className="px-4">
           <BreadCrumbs />
         </div>
-        <input type="checkbox" class="peer" />
+        <input type="checkbox" className="peer" />
         <div className="font-mono bg-neutral-focus mt-2 p-5 font-semibold rounded-t-md collapse-title ">
           <h1>Content in {fileName} is not text</h1>
           View Raw

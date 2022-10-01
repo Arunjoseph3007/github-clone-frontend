@@ -2,7 +2,6 @@ import { gitLs } from "@/utils/gitLs";
 import { useRouter } from "next/router";
 import FileList from "@/components/FileList";
 import ReadmeViewer from "@/components/ReadmeViewer";
-import RepoLayoutWithBranches from "@/layouts/RepoLayoutWithBranches";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
 import RepoHeader from "@/components/RepoHeader";
 
