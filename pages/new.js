@@ -1,5 +1,8 @@
+import { useUser } from "@/context/userContext";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function CreateRepoPage() {
@@ -7,10 +10,24 @@ export default function CreateRepoPage() {
   const [repoDesc, setRepoDesc] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useUser();
+  const router = useRouter();
 
   //@ Submit handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/main/repo`, {
+        repo_name: repoName,
+        is_public: isPublic,
+        user_id: user.userId,
+      });
+
+      router.push(`/${user.userName}/${res.data.repo_name}`);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   //@ Handle change

@@ -2,35 +2,41 @@ import { CollaboratorsIcon } from "@/icons/collaborators";
 import { RemoveUserIcon } from "@/icons/removeUser";
 import { SearchIcon } from "@/icons/search";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
+import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const DEFAULT_COLLABORATOR_DATA = [
   {
+    id: 1,
     fullName: "Bhavik shah",
     userName: "bhavikshah2002",
     role: "Collaborator",
     image: "https://placeimg.com/80/80/people",
   },
   {
+    id: 2,
     fullName: "Bhavik shah",
     userName: "bhavikshah2002",
     role: "Collaborator",
     image: "https://placeimg.com/80/80/people",
   },
   {
+    id: 3,
     fullName: "Bhavik shah",
     userName: "bhavikshah2002",
     role: "Collaborator",
     image: "https://placeimg.com/80/80/people",
   },
   {
+    id: 4,
     fullName: "Bhavik shah",
     userName: "bhavikshah2002",
     role: "Collaborator",
     image: "https://placeimg.com/80/80/people",
   },
   {
+    id: 5,
     fullName: "Bhavik shah",
     userName: "bhavikshah2002",
     role: "Collaborator",
@@ -38,12 +44,29 @@ const DEFAULT_COLLABORATOR_DATA = [
   },
 ];
 
-export default function ColaboratorsPage() {
-  const [collaborators, setCollaborators] = useState([]);
+export default function ColaboratorsPage({ collaborators: collabs }) {
+  const [collaborators, setCollaborators] = useState(collabs);
 
-  useEffect(() => {
-    setCollaborators(DEFAULT_COLLABORATOR_DATA);
-  }, []);
+  //$ For removing collaborators
+  const removeCollaborator = async (collaborator) => {
+    try {
+      // const res=await axios.delete('some url',collaborator)
+
+      setCollaborators((prev) => prev.filter((c) => c.id !== collaborator.id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // $ For adding collaborators
+  const addCollaborator = async (collaborator) => {
+    try {
+      const res = await axios.post("some url");
+      setCollaborators((prev) => [...prev, res.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -134,6 +157,7 @@ export default function ColaboratorsPage() {
                 </div>
               </div>
               <button
+                onClick={(e) => removeCollaborator(collaborator)}
                 data-tip={`Once Remove ${collaborator.userName} will no longer have access to the this repository.`}
                 className="btn btn-error flex gap-2 tooltip tooltip-left"
               >
@@ -150,7 +174,12 @@ export default function ColaboratorsPage() {
 
 ColaboratorsPage.getLayout = MainRepoLayout;
 
-//! To avoid Error
 export const getServerSideProps = async (ctx) => {
-  return { props: { data: null } };
+  try {
+    // const res = await axios.get("some url");
+
+    return { props: { collaborators: DEFAULT_COLLABORATOR_DATA } };
+  } catch (error) {
+    return { notFound: true };
+  }
 };

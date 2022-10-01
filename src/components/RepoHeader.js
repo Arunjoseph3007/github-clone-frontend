@@ -97,7 +97,7 @@ export default function RepoHeader() {
               action={`/api/${query.userName}/${query.repoName}/zip`}
               method="get"
             >
-              <button type="submit" className="btn">
+              <button type="submit" className="btn w-full mt-2">
                 Download zip
               </button>
             </form>

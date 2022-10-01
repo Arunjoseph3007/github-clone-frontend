@@ -4,33 +4,30 @@ import Link from "next/link";
 import Clock from "@/icons/clock";
 
 function RepoAllElement({
-  RepoTitle,
-  RepoDescription,
-  RepoType = "Public",
-  Date,
+  repoTitle,
+  repoDescription,
+  isPublic = true,
+  createdAt,
 }) {
   const router = useRouter();
+
   return (
     <div className="flex flex-col w-full">
       <div className="grid h-[8rem] card rounded-box place-items-center">
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col w-[80%] justify-between">
           <div className="flex justify-between">
-            <Link href={router.query.userName + "/" + RepoTitle}>
+            <Link href={router.query.userName + "/" + repoTitle}>
               <h2 className="card-title hover:cursor-pointer hover:underline text-blue-500">
-                {RepoTitle}
+                {repoTitle}
               </h2>
             </Link>
             <span className="indicator-item badge self-end rounded-full">
-              {RepoType}
+              {isPublic ? "Public" : "Private"}
             </span>
           </div>
-          <p>{RepoDescription}</p>
+          <p>{repoDescription}</p>
           <div className="flex gap-2 items-center text-sm">
-            {" "}
-            <Clock />{" "}
-            <p className="grow-0" >
-                created at :  {Date}
-            </p>{" "}
+            <Clock /> <p className="grow-0">created at : {createdAt}</p>
           </div>
         </div>
       </div>
