@@ -1,16 +1,26 @@
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 
-const SEO = ({ page = "" }) => {
+export default function SEO() {
   return (
-    <Head>
-      <title>
-        Arun Joseph{" "}
-        {page === "/"
-          ? ""
-          : " | " + page.charAt(1).toUpperCase() + page.slice(2)}
-      </title>
-    </Head>
+    <NextSeo
+      defaultTitle="Gitbase"
+      titleTemplate="Gitbase | %s"
+      description="A database for git repositories, similar to github"
+      openGraph={{
+        url: "http://gitbase.sytes.net",
+        title: "Gitbase",
+        description: "A database for git repositories, similar to github",
+        images: [
+          {
+            url: "https://raw.githubusercontent.com/Arunjoseph3007/github-clone-frontend/main/public/logo2.png",
+            width: 800,
+            height: 600,
+            alt: "Logo",
+            type: "image/jpeg",
+          },
+        ],
+        site_name: "Gitbase",
+      }}
+    />
   );
-};
-
-export default SEO;
+}
