@@ -1,24 +1,28 @@
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     setUser({
-      username: "Arun Joseph",
+      userName: "Arun Joseph",
+      firstName: "Arun",
+      lastName: "Joseph",
       email: "arunjoseph3007@gmail.com",
-      photoUrl: "https://placeimg.com/80/80/people",
+      photoUrl: "https://placeimg.com/200/200/people",
     });
     setLoading(false);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, setUser }}>
+      {user && children}
     </AuthContext.Provider>
   );
 }

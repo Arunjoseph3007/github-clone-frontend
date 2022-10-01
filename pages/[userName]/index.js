@@ -4,36 +4,40 @@ import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useUser } from "@/context/userContext";
 
 export default function User() {
-  const api = process.env.NEXT_PUBLIC_API
+  const api = process.env.NEXT_PUBLIC_API;
   const [active, setActive] = useState(true);
-  const [FName, setFName] = useState("First Name");
-  const [LName, setLName] = useState("Last Name");
-  const [UName, setUName] = useState("Username");
-  cost [cards, setCards] = useState([]);
+  const { user } = useUser();
+  const [cards, setCards] = useState([]);
+  
   function onPinClick() {
     setActive(true);
   }
   function onAllClick() {
     setActive(false);
   }
+
   useEffect(() => {
-    axios.get(api+"/main/repo/").then((res) => setCards(res.data));
+    axios.get(api + "/main/repo/").then((res) => setCards(res.data));
   }, []);
+
   return (
     <div className="min-h-screen bg-base-200  flex">
       <div className="w-[30%] bg-white">
         <div className="avatar flex justify-center mt-[3rem]">
           <div className="w-[20rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
-            <img className="overflow-hidden opacity-90 " src="/logo4.png" />
+            <img className="overflow-hidden opacity-90 " src={user.photoUrl} />
           </div>
         </div>
         <div className="flex flex-col mt-6">
           <div className="flex justify-center text-4xl font-serif">
-            {FName} {LName}
+            {user.firstName} {user.lastName}
           </div>
-          <div className="flex justify-center text-xl font-sans">{UName}</div>
+          <div className="flex justify-center text-xl font-sans">
+            {user.userName}
+          </div>
         </div>
       </div>
       <div className="w-[70%]">
