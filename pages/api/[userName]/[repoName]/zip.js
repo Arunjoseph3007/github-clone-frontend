@@ -32,17 +32,10 @@ export default async function zip(req, res) {
   res.setHeader("Content-disposition", `attachment; filename=${repoName}.zip`);
 
   try {
-    let result = [];
     const reader = childProcess.spawn("git", ["archive", "--format", "zip"], {
       cwd: gitify(userName + "/" + repoName),
     });
-    // reader.stdout.pipe(res);
-
-    reader.stdout.on("data", (data) => {
-      console.log(`${data}`);
-      result.push(`${data}`);
-      res.write(`${data}`);
-    });
+    reader.stdout.pipe(res);
 
     reader.on("close", () => {
       res.status(200);
