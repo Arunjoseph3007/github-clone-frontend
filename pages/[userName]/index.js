@@ -2,19 +2,25 @@ import AllRepo from "@/components/AllRepo";
 import PinRepo from "@/components/PinRepo";
 import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function User() {
+  const api = process.env.NEXT_PUBLIC_API
   const [active, setActive] = useState(true);
   const [FName, setFName] = useState("First Name");
   const [LName, setLName] = useState("Last Name");
   const [UName, setUName] = useState("Username");
+  cost [cards, setCards] = useState([]);
   function onPinClick() {
     setActive(true);
   }
   function onAllClick() {
     setActive(false);
   }
+  useEffect(() => {
+    axios.get(api+"/main/repo/").then((res) => setCards(res.data));
+  }, []);
   return (
     <div className="min-h-screen bg-base-200  flex">
       <div className="w-[30%] bg-white">
