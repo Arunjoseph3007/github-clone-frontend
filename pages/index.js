@@ -12,7 +12,7 @@ export default function Home() {
       <div
         className="hero min-h-screen"
         style={{
-          backgroundImage: "url(/background2.png)",
+          backgroundImage: "url(/background.png)",
         }}
       >
         <div className="hero"></div>
