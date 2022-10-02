@@ -13,9 +13,11 @@ export default function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       const res = await axios.post("post url", { email, password });
-      
+
+      setUser(res.data);
     } catch (error) {
       console.log(error);
+      setError(error);
       router.push("/");
     }
   };
@@ -28,9 +30,19 @@ export default function AuthProvider({ children }) {
     userName,
   }) => {
     try {
-      
+      const res = await axios.post("post url", {
+        email,
+        password,
+        user_name: userName,
+        first_name: firstName,
+        last_name: lastName,
+      });
+
+      setUser(res.data);
     } catch (error) {
-      
+      console.log(error);
+      setError(error);
+      router.push("/");
     }
   };
 

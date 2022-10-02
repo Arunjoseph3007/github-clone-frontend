@@ -2,10 +2,7 @@ import AllRepo from "@/components/AllRepo";
 import PinRepo from "@/components/PinRepo";
 import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
-import axios from "axios";
 import { useState } from "react";
-
-const api = process.env.NEXT_PUBLIC_API;
 
 export default function UserPage({ user, repos = [] }) {
   const [active, setActive] = useState(true);
