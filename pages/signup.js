@@ -104,7 +104,7 @@ export default function Signup() {
                 name="userName"
                 className="input input-bordered invalid:border-error"
                 title="Consisting of alphabets, numbers or special characters - or _ of length between 4 and 32 characters"
-                pattern="[a-zA-Z0-9-_]{4,32}"
+                pattern="[a-zA-Z0-9\-_]{4,32}"
                 required
               />
             </div>

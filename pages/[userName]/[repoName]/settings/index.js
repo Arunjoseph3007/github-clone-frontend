@@ -17,7 +17,10 @@ export default function SettingsPage({ data }) {
 
   return (
     <div className="w-full max-w-[800px] mx-auto mt-3">
-      <h2 className="text-3xl font-semibold">Settings</h2>
+      <h2 className="text-4xl font-semibold">Settings</h2>
+      <div className="divider"/>
+
+      {/* //$ Form */}
       <form onSubmit={handleSubmit} className="form-control ">
         <label htmlFor="repo-name-input" className="label">
           Repository name
@@ -86,6 +89,13 @@ export default function SettingsPage({ data }) {
           Update Repository
         </button>
       </form>
+      <hr />
+      <button
+        data-tip="This is irrreversible once deleted you won't be able to retireve this repository"
+        className="tooltip tooltip-bottom tooltip-error btn btn-error w-full mt-4 text-white tracking-widest"
+      >
+        Delete Repository
+      </button>
     </div>
   );
 }

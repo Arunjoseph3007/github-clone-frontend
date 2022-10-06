@@ -44,7 +44,7 @@ export default function ForkPage() {
           onChange={handleChange}
           id="repo-name-input"
           type="text"
-          pattern="[a-zA-Z0-9_]{4,32}"
+          pattern="[a-zA-Z0\-9_]{4,32}"
           title="A string consisting alphabets, numbers and characters - or _ with length not more than 32 characters and not less than 4 characters"
           className="input input-secondary input-bordered invalid:input-error"
           required

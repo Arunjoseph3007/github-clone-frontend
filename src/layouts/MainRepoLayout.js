@@ -1,5 +1,7 @@
+// @ Components
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+// @ cons
 import { BranchIcon } from "@/icons/branch";
 import { CodeIcon } from "@/icons/code";
 import { CollaboratorsIcon } from "@/icons/collaborators";
@@ -10,11 +12,12 @@ import { PublicIcon } from "@/icons/public";
 import { PullRequestIcon } from "@/icons/pullrequest";
 import { SettingsIcon } from "@/icons/settings";
 import { StarIcon } from "@/icons/star";
-
+// @ Utilities
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 
+// $ Array of tabs
 const PAGES = [
   { title: "home", icon: <CodeIcon />, link: "" },
   { title: "branches", icon: <BranchIcon />, link: "branches" },
@@ -29,6 +32,7 @@ const PAGES = [
   { title: "settings", icon: <SettingsIcon />, link: "settings" },
 ];
 
+// & UI
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
   const { query, asPath } = useRouter();
@@ -66,10 +70,12 @@ export default function MainRepoLayout(page) {
             </div>
 
             <div className="flex items-center gap-5 py-3 ">
-              <button className="btn gap-2">
-                <BranchIcon />
-                <span>fork</span>
-              </button>
+              <Link href={basePath + "fork"}>
+                <button className="btn gap-2">
+                  <BranchIcon />
+                  <span>fork</span>
+                </button>
+              </Link>
               <button className="btn gap-2">
                 <StarIcon />
                 <span>star</span>
