@@ -14,7 +14,7 @@ export default function FileViewer({ fileName, extension, data }) {
           <h1>Content in {fileName} is not text</h1>
           View Raw
         </div>
-        <div className="bg-neutral rounded-none mb-2 collapse-content">
+        <div className="rounded-none mb-2 collapse-content">
           <div className="mockup-code">
             {data.split("\n").map((line, i, arr) => (
               <pre
@@ -22,7 +22,7 @@ export default function FileViewer({ fileName, extension, data }) {
                 data-prefix={i}
                 key={i}
               >
-                <code>{line}</code>
+                <code >{line}</code>
               </pre>
             ))}
           </div>
@@ -33,7 +33,7 @@ export default function FileViewer({ fileName, extension, data }) {
 
   return (
     <>
-      <div className="mockup-code [font-family:monospace_!important]">
+      <div className="mockup-code bg-neutral-focus [font-family:monospace_!important]">
         <div className="px-4">
           <BreadCrumbs />
         </div>

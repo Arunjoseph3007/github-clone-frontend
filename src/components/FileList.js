@@ -27,23 +27,16 @@ export default function FileList({ data }) {
             <span className="w-10">
               <FolderIcon />
             </span>
-            <div className="flex items-center flex-1">
-              <Link
-                href={`/${userName}/${repoName}/tree/${branch}/${dir.name}`}
-              >
-                <a className="w-1/3 cursor-pointer">
-                  {dir.name.split("/").pop()}
-                </a>
-              </Link>
-              <Link href={`/${userName}/${repoName}/commit/${dir.lastCommit}`}>
-                <a
-                  data-tip={dir.author}
-                  className="w-2/3 text-sm text-gray-300 "
-                >
-                  {dir.lastCommitMessage}
-                </a>
-              </Link>
-            </div>
+            <Link href={`/${userName}/${repoName}/tree/${branch}/${dir.name}`}>
+              <a className="w-1/3 cursor-pointer">
+                {dir.name.split("/").pop()}
+              </a>
+            </Link>
+            <Link href={`/${userName}/${repoName}/commit/${dir.lastCommit}`}>
+              <a data-tip={dir.author} className="w-full text-sm text-gray-300 ">
+                {dir.lastCommitMessage}
+              </a>
+            </Link>
             <p>{format(dir.lastCommitDate)}</p>
           </div>
         ))}
@@ -52,7 +45,7 @@ export default function FileList({ data }) {
         {data.files.map((file, i) => (
           <div
             className={`${
-              dirLen+ i !== len-1  && "border-b"
+              dirLen + i !== len - 1 && "border-b"
             } text-white border-gray-500 p-2 flex justify-between w-full`}
             key={file.objectId}
           >

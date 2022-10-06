@@ -11,7 +11,7 @@ export default function TreePage({ data }) {
   return (
     <div>
       <RepoHeader />
-      <div className="p-3 bg-neutral-focus w-full max-w-[1000px] mx-auto">
+      <div className="p-3 m-10 rounded-xl bg-neutral-focus">
         <FileList data={data} />
       </div>
       <ReadmeViewer text={data.Readme} />

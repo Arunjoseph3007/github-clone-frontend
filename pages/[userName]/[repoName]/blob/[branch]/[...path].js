@@ -12,7 +12,7 @@ export default function BlobPage({ data, fileName }) {
   return (
     <div>
       <RepoHeader />
-      <div className="p-3 w-full max-w-[1000px] mx-auto">
+      <div className="p-3 m-10 bg-neutral-focus">
         <FileViewer data={data} fileName={fileName} extension={extenstion} />
       </div>
     </div>
