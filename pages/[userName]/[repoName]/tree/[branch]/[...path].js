@@ -3,15 +3,13 @@ import ReadmeViewer from "@/components/ReadmeViewer";
 import RepoHeader from "@/components/RepoHeader";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitLs } from "@/utils/gitLs";
-import { useRouter } from "next/router";
 
 export default function TreePage({ data }) {
-  const router = useRouter();
 
   return (
     <div>
       <RepoHeader />
-      <div className="p-3 m-10 rounded-xl bg-neutral-focus">
+      <div className="p-3 m-5 lg:m-10 rounded-xl bg-neutral-focus">
         <FileList data={data} />
       </div>
       <ReadmeViewer text={data.Readme} />

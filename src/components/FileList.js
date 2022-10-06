@@ -21,23 +21,26 @@ export default function FileList({ data }) {
           <div
             className={`${
               i !== len - 1 && "border-b"
-            } text-white border-gray-500 p-2 flex justify-between w-full`}
+            } text-white border-gray-500 p-2 py-3 flex gap-4 w-full`}
             key={dir.objectId}
           >
             <span className="w-10">
               <FolderIcon />
             </span>
             <Link href={`/${userName}/${repoName}/tree/${branch}/${dir.name}`}>
-              <a className="w-1/3 cursor-pointer">
+              <a className="w-full md:w-[250px] text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
                 {dir.name.split("/").pop()}
               </a>
             </Link>
             <Link href={`/${userName}/${repoName}/commit/${dir.lastCommit}`}>
-              <a data-tip={dir.author} className="w-full text-sm text-gray-300 ">
+              <a
+                data-tip={dir.author}
+                className="w-full hidden md:block text-ellipsis overflow-hidden whitespace-nowrap text-sm text-gray-300 "
+              >
                 {dir.lastCommitMessage}
               </a>
             </Link>
-            <p>{format(dir.lastCommitDate)}</p>
+            <p className="shrink-0">{format(dir.lastCommitDate)}</p>
           </div>
         ))}
 
@@ -46,30 +49,26 @@ export default function FileList({ data }) {
           <div
             className={`${
               dirLen + i !== len - 1 && "border-b"
-            } text-white border-gray-500 p-2 flex justify-between w-full`}
+            } text-white border-gray-500 p-2 py-3 flex gap-4 w-full`}
             key={file.objectId}
           >
             <span className="w-10">
               <LanguageIcon name={file.name} />
             </span>
-            <div className="flex items-center flex-1">
-              <Link
-                href={`/${userName}/${repoName}/blob/${branch}/${file.name}`}
+            <Link href={`/${userName}/${repoName}/blob/${branch}/${file.name}`}>
+              <a className="w-full md:w-[250px] text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
+                {file.name.split("/").pop()}
+              </a>
+            </Link>
+            <Link href={`/${userName}/${repoName}/commit/${file.lastCommit}`}>
+              <a
+                data-tip={file.author}
+                className="w-full hidden md:block text-ellipsis overflow-hidden whitespace-nowrap text-sm text-gray-300 "
               >
-                <a className="w-1/3 cursor-pointer">
-                  {file.name.split("/").pop()}
-                </a>
-              </Link>
-              <Link href={`/${userName}/${repoName}/commit/${file.lastCommit}`}>
-                <a
-                  data-tip={file.author}
-                  className="w-2/3 text-sm text-gray-300 "
-                >
-                  {file.lastCommitMessage}
-                </a>
-              </Link>
-            </div>
-            <p>{format(file.lastCommitDate)}</p>
+                {file.lastCommitMessage}
+              </a>
+            </Link>
+            <p className="shrink-0">{format(file.lastCommitDate)}</p>
           </div>
         ))}
       </div>

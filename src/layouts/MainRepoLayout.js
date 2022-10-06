@@ -69,7 +69,7 @@ export default function MainRepoLayout(page) {
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
             </div>
 
-            <div className="flex items-center gap-5 py-3 ">
+            <div className="hidden md:flex items-center gap-5 py-3 ">
               <Link href={basePath + "fork"}>
                 <button className="btn gap-2">
                   <BranchIcon />
@@ -84,7 +84,7 @@ export default function MainRepoLayout(page) {
           </div>
 
           {/* //? Tabs */}
-          <div className="tabs mt-4 border-b-4">
+          <div className="tabs mt-4 border-b-4 overflow-y-scroll overflow-x-hidden whitespace-nowrap">
             {PAGES.map(({ icon: PageIcon, ...page }) => (
               <Link href={basePath + page.link} key={page.title}>
                 <a
