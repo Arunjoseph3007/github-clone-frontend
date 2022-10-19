@@ -40,6 +40,10 @@ body {
   .fullscreen {
     @apply w-screen h-screen;
   }
+
+  .dot-dot-dot {
+    @apply text-ellipsis overflow-hidden whitespace-nowrap;
+  }
 }
 
 /* $ CODE STUFF */

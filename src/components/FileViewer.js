@@ -1,7 +1,11 @@
 import { syntaxHighlight } from "@/libs/highlight";
-import BreadCrumbs from "./BreadCrumbs";
+import BreadCrumbs from "@/components/BreadCrumbs";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function FileViewer({ fileName, extension, data }) {
+  const { asPath } = useRouter();
+
   //$ For images
   if (["jpg", "png"].includes(extension)) {
     return (
@@ -22,7 +26,7 @@ export default function FileViewer({ fileName, extension, data }) {
                 data-prefix={i}
                 key={i}
               >
-                <code >{line}</code>
+                <code>{line}</code>
               </pre>
             ))}
           </div>
@@ -34,28 +38,23 @@ export default function FileViewer({ fileName, extension, data }) {
   return (
     <>
       <div className="mockup-code bg-neutral-focus [font-family:monospace_!important]">
-        <div className="px-4">
+        <div className="px-4 flex justify-between items-center pb-3">
           <BreadCrumbs />
+          <Link href={asPath.replace("/blob/", "/blame/")}>
+            <a className="btn">View blame</a>
+          </Link>
         </div>
         {data.split("\n").map((line, i, arr) => (
-          <pre data-prefix={i} key={i}>
+          <pre
+            id={"L" + i}
+            className="p-1 target:bg-gray-300 flex-1"
+            data-prefix={i}
+            key={i}
+          >
             <code dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
           </pre>
         ))}
       </div>
     </>
   );
-}
-
-function toBinary(string) {
-  const codeUnits = new Uint16Array(string.length);
-  for (let i = 0; i < codeUnits.length; i++) {
-    codeUnits[i] = string.charCodeAt(i);
-  }
-  const charCodes = new Uint8Array(codeUnits.buffer);
-  let result = "";
-  for (let i = 0; i < charCodes.byteLength; i++) {
-    result += String.fromCharCode(charCodes[i]);
-  }
-  return btoa(result);
 }
