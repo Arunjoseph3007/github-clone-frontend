@@ -2,6 +2,7 @@ import { syntaxHighlight } from "@/libs/highlight";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function FileViewer({ fileName, extension, data }) {
   const { asPath } = useRouter();

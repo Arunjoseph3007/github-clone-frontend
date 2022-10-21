@@ -47,12 +47,10 @@ body {
 }
 
 /* $ CODE STUFF */
-pre > code,
-pre > code > span {
+pre * {
   font-family: "Roboto Mono", "Sans Mono", "Consolas", "Courier", monospace;
 }
 pre::selection,
-pre > code::selection,
-pre > code > span::selection {
+pre *::selection {
   background-color: black;
 }

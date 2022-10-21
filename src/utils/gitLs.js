@@ -4,7 +4,7 @@ const childProcess = require("child_process");
 
 export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
   try {
-    const result = childProcess.execSync(`git ls-tree ${branch} ${dirPath}/`, {
+    const result = childProcess.execSync(`git ls-tree ${branch} "${dirPath}/"`, {
       cwd: gitify(repoPath),
     });
 
@@ -75,4 +75,4 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
 };
 
 const querify = (elm) =>
-  `git log -n 1 --pretty=format:"%H #### %an #### %s #### %ad \n" -- ${elm.name}`;
+  `git log -n 1 --pretty=format:"%H #### %an #### %s #### %ad \n" -- "${elm.name}"`;

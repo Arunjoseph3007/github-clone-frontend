@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { format } from "timeago.js";
 import BreadCrumbs from "@/components/BreadCrumbs";
+import { PreviousIcon } from "@/icons/previous";
 
 export default function FileBlamer({ fileName, extension, data }) {
   const { query, asPath, pathname } = useRouter();
@@ -67,7 +68,7 @@ export default function FileBlamer({ fileName, extension, data }) {
                   </>
                 )}
               </div>
-              <div className="w-10 flex justify-center items-center border-r border-gray-800">
+              <div className="w-10 flex justify-center items-center shrink-0 border-r text-gray-500 hover:text-white border-gray-800">
                 {displayContent && line.previous && (
                   <Link
                     href={{
@@ -75,8 +76,8 @@ export default function FileBlamer({ fileName, extension, data }) {
                       query: { ...query, branch: line.previous },
                     }}
                   >
-                    <a>
-                      <UserIcon />
+                    <a data-tip="Previous" className="tooltip tooltip-bottom">
+                      <PreviousIcon />
                     </a>
                   </Link>
                 )}

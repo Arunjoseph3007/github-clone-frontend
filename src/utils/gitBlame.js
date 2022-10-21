@@ -5,7 +5,7 @@ const childProcess = require("child_process");
 export const gitBlame = (repoPath, filePath, branch = "main") => {
   try {
     const result = childProcess
-      .execSync(`git blame --line-porcelain ${branch} ${filePath}`, {
+      .execSync(`git blame --line-porcelain ${branch} "${filePath}"`, {
         cwd: gitify(repoPath),
       })
       .toString()
