@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@splinetool/react-spline": "^2.2.3",
-    "@splinetool/runtime": "^0.9.125",
     "@tanstack/react-query": "^4.2.3",
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",
@@ -22,8 +20,10 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.3",
     "remark-gfm": "^3.0.1",
+    "three": "^0.145.0",
     "timeago.js": "^4.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vanta": "^0.5.24"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",
