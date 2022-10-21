@@ -26,7 +26,7 @@ export default function Signup() {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/accounts/register`,
+        `${process.env.NEXT_PUBLIC_API}/accounts/register/`,
         {
           first_name: userDetails.firstName,
           last_name: userDetails.lastName,
@@ -35,10 +35,10 @@ export default function Signup() {
           password: userDetails.password,
         }
       );
-
+      console.log(res.data);
       setUser(res.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 

@@ -47,7 +47,7 @@ export default function FileViewer({ fileName, extension, data }) {
         {data.split("\n").map((line, i, arr) => (
           <pre
             id={"L" + i}
-            className="p-1 target:bg-gray-300 flex-1"
+            className="target:bg-gray-300 flex-1"
             data-prefix={i}
             key={i}
           >

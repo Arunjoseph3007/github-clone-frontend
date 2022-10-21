@@ -6,7 +6,7 @@ import { format } from "timeago.js";
 import BreadCrumbs from "@/components/BreadCrumbs";
 
 export default function FileBlamer({ fileName, extension, data }) {
-  const { query, asPath } = useRouter();
+  const { query, asPath, pathname } = useRouter();
 
   //$ For images
   if (["jpg", "png"].includes(extension)) {
@@ -65,6 +65,20 @@ export default function FileBlamer({ fileName, extension, data }) {
                       {format(line.authorTime)}
                     </p>
                   </>
+                )}
+              </div>
+              <div className="w-10 flex justify-center items-center border-r border-gray-800">
+                {displayContent && line.previous && (
+                  <Link
+                    href={{
+                      pathname,
+                      query: { ...query, branch: line.previous },
+                    }}
+                  >
+                    <a>
+                      <UserIcon />
+                    </a>
+                  </Link>
                 )}
               </div>
               <pre

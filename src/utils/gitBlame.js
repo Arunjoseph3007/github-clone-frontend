@@ -27,6 +27,7 @@ const objFromText = (text) => {
   const content     = details[0].slice("text ".length);
   const summary     = details.find((a) => a.startsWith("summary ")).slice("summary ".length);
   const commiter    = details.find((a) => a.startsWith("committer ")).slice("committer ".length);
+  const previous    = details.find((a) => a.startsWith("previous "))?.split(' ')?.[1] || null;
   const authorTime  = new Date(details.find((a) => a.startsWith("author-time ")).slice("author-time ".length) * 1000).toString();
 
   return {
@@ -35,6 +36,7 @@ const objFromText = (text) => {
     summary,
     commiter,
     authorTime,
+    previous
   };
 };
 
