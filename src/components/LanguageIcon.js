@@ -2,12 +2,6 @@ import { DocumentIcon } from "@/icons/documents";
 
 export default function LanguageIcon({ name }) {
   return <DocumentIcon />;
-
-  const extension = getExtension(name);
-
-  if (Devicons[extension])
-    return <i className={`devicon-${Devicons[extension]}-plain`}></i>;
-
 }
 
 const getExtension = (name) => name.split(".").pop();
