@@ -17,7 +17,7 @@ jobs:
     - uses: google-github-actions/setup-gcloud@v0.2.0 
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }} 
-        service_account_key: ${{ secrets.GCP SA KEYBASE64 }}
+        service_account_key: ${{ secrets.GCP_SA_KEYBASE64 }}
         service_account_email: ${{ secrets.GCP_SA_EMAIL }} 
     - name: Enable all the apis required in GCP, 
       run: |-
