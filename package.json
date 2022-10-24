@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.2.3",
+    "apexcharts": "^3.36.0",
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",
     "highlight.js": "^11.6.0",
@@ -17,6 +18,7 @@
     "next-seo": "^5.5.0",
     "nextjs-progressbar": "^0.0.14",
     "react": "18.2.0",
+    "react-apexcharts": "^1.4.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.3",
     "remark-gfm": "^3.0.1",

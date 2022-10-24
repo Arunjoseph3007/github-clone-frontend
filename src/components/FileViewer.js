@@ -6,6 +6,13 @@ import { useEffect, useState } from "react";
 
 export default function FileViewer({ fileName, extension, data }) {
   const { asPath } = useRouter();
+  const [downloadUrl, setDownloadUrl] = useState();
+
+  useEffect(() => {
+    const blob = new Blob([data], { type: "image/png" });
+    const url = window.URL.createObjectURL(blob);
+    setDownloadUrl(url);
+  }, []);
 
   //$ For images
   if (["jpg", "png"].includes(extension)) {
@@ -13,6 +20,9 @@ export default function FileViewer({ fileName, extension, data }) {
       <div tabIndex="1" className="collapse text-white collapse-arrow p-0">
         <div className="px-4">
           <BreadCrumbs />
+          <a href={downloadUrl} download={fileName} className="btn">
+            download content
+          </a>
         </div>
         <input type="checkbox" className="peer" />
         <div className="font-mono bg-neutral-focus mt-2 p-5 font-semibold rounded-t-md collapse-title ">
@@ -41,9 +51,14 @@ export default function FileViewer({ fileName, extension, data }) {
       <div className="mockup-code bg-neutral-focus [font-family:monospace_!important]">
         <div className="px-4 flex justify-between items-center pb-3">
           <BreadCrumbs />
-          <Link href={asPath.replace("/blob/", "/blame/")}>
-            <a className="btn">View blame</a>
-          </Link>
+          <div className="flex gap-3">
+            <Link href={asPath.replace("/blob/", "/blame/")}>
+              <a className="btn">View blame</a>
+            </Link>
+            <a href={downloadUrl} download={fileName} className="btn">
+              download content
+            </a>
+          </div>
         </div>
         {data.split("\n").map((line, i, arr) => (
           <pre
