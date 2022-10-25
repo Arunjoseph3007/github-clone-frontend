@@ -48,7 +48,7 @@ export default function EmptyRepo() {
             <code>git commit -m "first commit"</code>
           </pre>
           <pre data-prefix=">">
-            <code>git branch -M main</code>
+            <code>{`git branch -M main`}</code>
           </pre>
           <pre data-prefix=">">
             <code>git remote add origin {url}</code>
