@@ -18,15 +18,31 @@ export default function Login() {
     e.preventDefault();
 
     try {
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_API}/accounts/login/`,{
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body:JSON.stringify(userDetails)
+      // })
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/accounts/register`,
-        userDetails
+        `${process.env.NEXT_PUBLIC_API}/accounts/login/`,
+        userDetails,
       );
-
       setUser(res.data);
-      console.log(res.data);
+      localStorage.setItem('token',res.data.token)
+      localStorage.setItem('id',res.data.user_id)
+      window.location.href='/'+res.data.username
+      
     } catch (error) {
-      console.log(error);
+      let msg = "Wrong Credentials"
+      alert(msg)
+      setUserDetails({
+        email:"",
+        password:""
+      }
+        
+      )
     }
   };
 
