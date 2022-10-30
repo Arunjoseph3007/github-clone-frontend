@@ -35,8 +35,21 @@ export default function Signup() {
           password: userDetails.password,
         }
       );
-      console.log(res.data);
-      setUser(res.data);
+      if(res.data.username==userDetails.userName){
+        console.log(res.data);
+        setUser(res.data);
+        let msg = "Verification Mail Sent to your mail id."
+        alert(msg)
+        window.location.href='/login'
+      }
+      else if(res.data.email){
+        let msg = "Email Already Registerd try to Login"
+        alert(msg)
+      }
+      else{
+        let msg = res.data.username
+        alert(msg)
+      }
     } catch (error) {
       console.log(error);
     }
