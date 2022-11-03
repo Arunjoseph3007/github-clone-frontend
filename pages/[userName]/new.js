@@ -16,17 +16,24 @@ export default function CreateRepoPage() {
   //@ Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/main/repo`, {
-        repo_name: repoName,
-        is_public: isPublic,
-        user_id: user.userId,
-      });
-
-      router.push(`/${user.userName}/${res.data.repo_name}`);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/main/repo/`,
+        {
+          repo_name: repoName,
+          is_public: isPublic,
+        },
+        {
+          headers: {
+            Authorization: "Token " + localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(res.data)
+      // router.push(``)
     } catch (error) {
       setError(error);
+      console.log(error)
     }
   };
 
@@ -56,7 +63,7 @@ export default function CreateRepoPage() {
           onChange={handleChange}
           id="repo-name-input"
           type="text"
-          pattern="[a-zA-Z0\-9_]{4,32}"
+          pattern="[a-zA-Z0-9_]{4,32}"
           title="A string consisting alphabets, numbers and characters - or _ with length not more than 32 characters and not less than 4 characters"
           className="input input-secondary input-bordered invalid:input-error"
           required
