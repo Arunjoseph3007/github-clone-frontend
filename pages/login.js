@@ -1,7 +1,7 @@
-import { useUser } from "@/context/userContext";
-import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useUser } from "@/context/userContext";
 
 export default function Login() {
   const { setUser } = useUser();
@@ -9,6 +9,9 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const router = useRouter();
+  const { login } = useUser();
+
   // @ Change handler
   const handleChange = (e) =>
     setUserDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -17,33 +20,9 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_API}/accounts/login/`,{
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body:JSON.stringify(userDetails)
-      // })
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/accounts/login/`,
-        userDetails,
-      );
-      setUser(res.data);
-      localStorage.setItem('token',res.data.token)
-      localStorage.setItem('id',res.data.user_id)
-      window.location.href='/'+res.data.username
-      
-    } catch (error) {
-      let msg = "Wrong Credentials"
-      alert(msg)
-      setUserDetails({
-        email:"",
-        password:""
-      }
-        
-      )
-    }
+    const data = await login(userDetails);
+
+    if (data.success) router.push("/" + data.username);
   };
 
   return (

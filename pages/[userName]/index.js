@@ -2,6 +2,7 @@ import AllRepo from "@/components/AllRepo";
 import PinRepo from "@/components/PinRepo";
 import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function UserPage({ user, repos = [] }) {
@@ -13,17 +14,18 @@ export default function UserPage({ user, repos = [] }) {
   function onAllClick() {
     setActive(false);
   }
-  function createRepo(){
-    window.location.href=window.location+'/new'
-  }
 
   return (
     <div className="min-h-screen bg-base-200  flex">
       <div className="w-[30%] bg-white">
         <div className="flex justify-center mt-[2rem]">
-          <button className="btn btn-sm md:btn-wide" onClick={createRepo}>Create New Repository</button>
+          <Link href="/new">
+            <button className="btn btn-sm md:btn-wide">
+              Create New Repository
+            </button>
+          </Link>
         </div>
-      
+
         <div className="avatar flex justify-center mt-[2rem]">
           <div className="w-[20rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
             <img className="overflow-hidden opacity-90 " src={user.photoUrl} />

@@ -1,7 +1,9 @@
 import { useUser } from "@/context/userContext";
-import axios from "axios";
+import axios from "@/libs/axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const { setUser } = useUser();
@@ -13,6 +15,8 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+  const router = useRouter();
+  const { register } = useUser();
 
   //$ Change handler
   const handleChange = (e) =>
@@ -24,35 +28,9 @@ export default function Signup() {
 
     if (userDetails.password !== userDetails.confirmPassword) return;
 
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/accounts/register/`,
-        {
-          first_name: userDetails.firstName,
-          last_name: userDetails.lastName,
-          email: userDetails.email,
-          username: userDetails.userName,
-          password: userDetails.password,
-        }
-      );
-      if(res.data.username==userDetails.userName){
-        console.log(res.data);
-        setUser(res.data);
-        let msg = "Verification Mail Sent to your mail id."
-        alert(msg)
-        window.location.href='/login'
-      }
-      else if(res.data.email){
-        let msg = "Email Already Registerd try to Login"
-        alert(msg)
-      }
-      else{
-        let msg = res.data.username
-        alert(msg)
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await register(userDetails);
+
+    if (res.success) router.push("/login");
   };
 
   return (

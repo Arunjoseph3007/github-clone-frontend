@@ -1,7 +1,7 @@
 import { useUser } from "@/context/userContext";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
-import axios from "axios";
+import axios from "@/libs/axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -17,23 +17,16 @@ export default function CreateRepoPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/main/repo/`,
-        {
-          repo_name: repoName,
-          is_public: isPublic,
-        },
-        {
-          headers: {
-            Authorization: "Token " + localStorage.getItem("token"),
-          },
-        }
-      );
-      console.log(res.data)
-      // router.push(``)
+      const res = await axios.post(`/main/repo/`, {
+        repo_name: repoName,
+        is_public: isPublic,
+      });
+      console.log(res.data);
+      router.push(`/${res.data.user_name}/${res.data.repo_name}`)
+      
     } catch (error) {
       setError(error);
-      console.log(error)
+      console.log(error);
     }
   };
 
