@@ -60,7 +60,7 @@ export default function AuthProvider({ children }) {
       }
     } catch (error) {
       toast.error("Something went wrong");
-      return { ...res.data, success: false };
+      return { ...error, success: false };
     }
   };
 
