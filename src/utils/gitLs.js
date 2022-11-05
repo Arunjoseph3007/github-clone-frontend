@@ -4,9 +4,12 @@ const childProcess = require("child_process");
 
 export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
   try {
-    const result = childProcess.execSync(`git ls-tree ${branch} "${dirPath}/"`, {
-      cwd: gitify(repoPath),
-    });
+    const result = childProcess.execSync(
+      `git ls-tree ${branch} "${dirPath}/"`,
+      {
+        cwd: gitify(repoPath),
+      }
+    );
 
     let files = [],
       dirs = [],
@@ -29,7 +32,9 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
       });
 
     //@ Query for last commit of each file/directory
-    const cmdQuery = [...dirs, ...files].map(querify).join(" && ");
+    const cmdQuery = [...dirs, ...files]
+      .map((elm) => querify(elm, branch))
+      .join(" && ");
 
     //@ Collecting history
     const historyResult = childProcess
@@ -74,5 +79,5 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
   }
 };
 
-const querify = (elm) =>
-  `git log -n 1 --pretty=format:"%H #### %an #### %s #### %ad \n" -- "${elm.name}"`;
+const querify = (elm, branch) =>
+  `git log -n 1 --pretty=format:"%H #### %an #### %s #### %ad \n" ${branch} -- "${elm.name}"`;
