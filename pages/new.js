@@ -4,6 +4,7 @@ import { PublicIcon } from "@/icons/public";
 import axios from "@/libs/axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function CreateRepoPage() {
   const [repoName, setRepoName] = useState("");
@@ -21,12 +22,12 @@ export default function CreateRepoPage() {
         repo_name: repoName,
         is_public: isPublic,
       });
-      console.log(res.data);
-      router.push(`/${res.data.user_name}/${res.data.repo_name}`)
       
+      toast.success("Repo created sucessfully");
+      router.push(`/${res.data.user_name}/${res.data.repo_name}`);
     } catch (error) {
       setError(error);
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
 

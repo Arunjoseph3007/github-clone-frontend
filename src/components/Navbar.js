@@ -1,8 +1,11 @@
+import { useUser } from "@/context/userContext";
 import { PlusIcon } from "@/icons/plus";
 import { SearchIcon } from "@/icons/search";
 import Link from "next/link";
 
 export default function Navbar() {
+  const { user, logout } = useUser();
+
   return (
     <div className="navbar bg-base-100 shadow">
       {/* //@ Left section */}
@@ -35,33 +38,51 @@ export default function Navbar() {
                 <PlusIcon />
               </a>
             </Link>
-            <div className="dropdown dropdown-left">
-              <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src="https://placeimg.com/80/80/people" />
+            {user ? (
+              <div className="dropdown dropdown-left">
+                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoUrl} />
+                  </div>
+                </label>
+                <div
+                  tabIndex="0"
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[14rem]"
+                >
+                  <Link href={`/${user.userName}`}>
+                    <div className="flex flex-col items-center gap-2">
+                      <img
+                        className="avatar h-[4rem] rounded-full"
+                        src={user.photoUrl}
+                      />
+                      <a className="text-xl">{user.userName}</a>
+                    </div>
+                  </Link>
+                  <hr className="my-2" />
+                  <ul>
+                    <li>
+                      <Link href={"/" + user.userName}>
+                        <a className="w-full">Profile</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/">
+                        <a className="w-full">Settings</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <a onClick={logout} className="w-full">
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-              </label>
-              <ul
-                tabIndex="0"
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <Link href="/">
-                    <a className="w-full">Profile</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/">
-                    <a className="w-full">Settings</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/">
-                    <a className="w-full">Logout</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              </div>
+            ) : (
+              <Link href="/login">
+                <a className="btn text-white">Login</a>
+              </Link>
+            )}
           </li>
         </ul>
       </div>
