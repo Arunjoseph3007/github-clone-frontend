@@ -47,7 +47,7 @@ export default function Navbar() {
                 </label>
                 <div
                   tabIndex="0"
-                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[14rem]"
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[24rem]"
                 >
                   <Link href={`/${user.userName}`}>
                     <div className="flex flex-col items-center gap-2">
@@ -56,6 +56,7 @@ export default function Navbar() {
                         src={user.photoUrl}
                       />
                       <a className="text-xl">{user.userName}</a>
+                      <a className="font-thin text-gray-700">{user.email}</a>
                     </div>
                   </Link>
                   <hr className="my-2" />

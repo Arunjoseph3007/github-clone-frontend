@@ -68,20 +68,35 @@ export default function AuthProvider({ children }) {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
 
-    setUser(null)
+    setUser(null);
+  };
+
+  const refresh = async () => {
+    setLoading(true);
+    const userId = localStorage.getItem("id");
+    if (!userId) {
+      setUser(null);
+      return;
+    }
+    try {
+      const { data } = await axios.get("/accounts/MyUser/" + userId + "/");
+      console.log(data.profile_pic)
+      setUser({
+        userName: data.username,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        photoUrl: process.env.NEXT_PUBLIC_API + data.profile_pic,
+        userId: data.user_id,
+      });
+    } catch (e) {
+      setUser(null);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    setLoading(true);
-    setUser({
-      userName: "Arunjoseph3007",
-      firstName: "Arun",
-      lastName: "Joseph",
-      email: "arunjoseph3007@gmail.com",
-      photoUrl: "https://placeimg.com/200/200/people",
-      userId: localStorage.getItem("id"),
-    });
-    setLoading(false);
+    refresh();
   }, []);
 
   return (
