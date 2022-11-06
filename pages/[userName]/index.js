@@ -4,10 +4,13 @@ import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
 import Link from "next/link";
 import { useState } from "react";
+import EditProfileModal from "@/components/EditProfileModal";
+import { useUser } from "@/context/userContext";
 
-export default function UserPage({ user, repos = [] }) {
+export default function UserPage({ repos = [] }) {
+  const { user} = useUser();
   const [active, setActive] = useState(true);
-
+  
   function onPinClick() {
     setActive(true);
   }
@@ -39,6 +42,17 @@ export default function UserPage({ user, repos = [] }) {
             {user.userName}
           </div>
         </div>
+        <div className="flex justify-center mt-[2rem]">
+          <label
+            htmlFor="my-modal"
+            className="btn btn-outline btn-sm md:btn-wide"
+          >
+            Edit Profile
+          </label>
+        </div>
+        <input type="checkbox" id="my-modal" className="modal-toggle" />
+        <div className="modal"> <EditProfileModal/> </div>
+        
       </div>
       <div className="w-[70%]">
         <div className="">
