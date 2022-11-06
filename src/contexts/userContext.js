@@ -67,12 +67,14 @@ export default function AuthProvider({ children }) {
   const logout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
+
+    setUser(null)
   };
 
   useEffect(() => {
     setLoading(true);
     setUser({
-      userName: "Arun Joseph",
+      userName: "Arunjoseph3007",
       firstName: "Arun",
       lastName: "Joseph",
       email: "arunjoseph3007@gmail.com",
