@@ -22,7 +22,7 @@
   <p>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](README.md) 
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fhoppscotch.io&logo=hoppscotch)](https://gitbase.sytes.net) 
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fhoppscotch.io&logo=hoppscotch)](http://gitbase.sytes.net) 
 
   </p>
   <p>
