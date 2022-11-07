@@ -2,9 +2,19 @@ import { useUser } from "@/context/userContext";
 import { PlusIcon } from "@/icons/plus";
 import { SearchIcon } from "@/icons/search";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Navbar() {
   const { user, logout } = useUser();
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e) => {
+    if (!searchTerm) return;
+
+    router.push(`/search?q=${searchTerm}`);
+  };
 
   return (
     <div className="navbar bg-base-100 shadow">
@@ -20,10 +30,16 @@ export default function Navbar() {
         <div className="input-group gap-4">
           <input
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search on GitBase"
             className="input w-full border-none outline-none"
           />
-          <button className="btn-square">
+          <button
+            disable={!searchTerm}
+            onClick={handleSearch}
+            className="btn-square"
+          >
             <SearchIcon />
           </button>
         </div>

@@ -5,8 +5,13 @@ const axios = axs.create({
 });
 
 axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token") || "";
-  if(token){
+  let token;
+  try {
+    token = localStorage.getItem("token") || "";
+  } catch (e) {
+    console.log(e);
+  }
+  if (token) {
     config.headers.Authorization = `Token ${token}`;
   }
 

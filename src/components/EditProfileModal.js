@@ -15,6 +15,7 @@ function EditProfileModal() {
     image: user.photoUrl,
     imageFile: null,
   });
+
   //$ Change handler
   const handleChange = (e) =>
     setUserDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -47,15 +48,19 @@ function EditProfileModal() {
       toast.error("Error Occured");
     }
   };
+
+  // ? Handles Image to URL
   function uploadImage() {
     let file = document.getElementById("fileInput").files[0];
     setImageDetails({ image: URL.createObjectURL(file), imageFile: file });
   }
+
+  // & UI
   return (
     <div className="modal-box">
       <h3 className="font-bold text-lg">Your Profile</h3>
       <div>
-        {/* Form Page */}
+        {/*//@ Form Page */}
         <div>
           <form className="bg-white sm:max-w-full max-w-md rounded overflow-hidden shadow-lg">
             <div className="form-control">

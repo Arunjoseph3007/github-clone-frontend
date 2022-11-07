@@ -2,6 +2,7 @@ import Clock from "@/icons/clock";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { format } from "timeago.js";
 
 function RepoCards({ repoTitle, repoDescription, isPublic = true, createdAt }) {
   const router = useRouter();
@@ -23,7 +24,7 @@ function RepoCards({ repoTitle, repoDescription, isPublic = true, createdAt }) {
         <div className="flex gap-2 items-center text-sm">
           <Clock />
           <p className="grow-0 tooltip tooltip-right " data-tip="created at">
-            {createdAt}
+            created {format(createdAt)}
           </p>
         </div>
       </div>

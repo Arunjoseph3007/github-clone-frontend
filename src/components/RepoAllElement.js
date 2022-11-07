@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Link from "next/link";
 import Clock from "@/icons/clock";
+import { format } from "timeago.js";
 
 function RepoAllElement({
   repoTitle,
@@ -27,7 +28,7 @@ function RepoAllElement({
           </div>
           <p>{repoDescription}</p>
           <div className="flex gap-2 items-center text-sm">
-            <Clock /> <p className="grow-0">created at : {createdAt}</p>
+            <Clock /> <p className="grow-0">created {format(createdAt)}</p>
           </div>
         </div>
       </div>
