@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
+import Navbar from "@/components/Navbar";
 
 export default function UserPage({ repos = [], user }) {
   const [active, setActive] = useState(true);
@@ -25,8 +26,13 @@ export default function UserPage({ repos = [], user }) {
   }
 
   return (
-    <div className="min-h-screen bg-base-200  flex">
-      <div className="w-[30%] bg-white">
+    <div className="min-h-screen">
+      <div className="border-b-4 divide-slate-500">
+      <Navbar />
+      </div>
+      
+    <div className="bg-base-200  flex">
+      <div className="w-[30%] bg-white border-r-4 divide-red-700">
         <div className="flex justify-center mt-[2rem]">
           <Link href="/new">
             <button className="btn btn-sm md:btn-wide">
@@ -36,7 +42,7 @@ export default function UserPage({ repos = [], user }) {
         </div>
 
         <div className="avatar flex justify-center mt-[2rem]">
-          <div className="w-[20rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
+          <div className="w-[15rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
             <img className="overflow-hidden opacity-90 " src={user.photoUrl} />
           </div>
         </div>
@@ -84,6 +90,7 @@ export default function UserPage({ repos = [], user }) {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }
