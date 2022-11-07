@@ -28,7 +28,7 @@
   <p>
     <sub>
       Built with ❤︎ by
-      <a href="https://github.com/Arunjoseph3007/github-clone-frontend/graphs/contributors">
+      <a href="http://github.com/Arunjoseph3007/github-clone-frontend/graphs/contributors">
         contributors
       </a>
     </sub>
