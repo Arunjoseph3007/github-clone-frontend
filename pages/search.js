@@ -9,20 +9,64 @@ export default function SearchPage(props) {
     {
       name: "Bhavik",
       username: "Tester1",
-      createdAt: '20-05-2020'
+      createdAt: "20-05-2020",
     },
     {
       name: "Bhavik2",
       username: "Tester2",
-      createdAt: '20-05-2020'
+      createdAt: "20-05-2020",
     },
-  ]
-  return(
-    <div>
-      <SearchRepo repos={repos} heading={"Results Match on : "+searchWord}/>
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik2",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik10",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik11",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+  ];
+  return (
+    <div className="">
+      <SearchRepo repos={repos} heading={"Results Match on : " + searchWord} />
     </div>
-  ) ;
+  );
 }
 
 SearchPage.getLayout = MainLayout;
-

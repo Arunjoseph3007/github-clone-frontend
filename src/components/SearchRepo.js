@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import SearchRepoElement from "./SearchRepoElement";
 
-function SearchRepo({ repos,heading }) {
+function SearchRepo({ repos, heading }) {
   return (
     <>
       <div className="flex justify-center m-5">
@@ -19,7 +19,7 @@ function SearchRepo({ repos,heading }) {
           </Link>
         </div>
       )}
-      <div className="overflow-y-scroll max-h-[80vh]">
+      <div>
         {repos.map((repo) => (
           <SearchRepoElement
             key={repo.name}
