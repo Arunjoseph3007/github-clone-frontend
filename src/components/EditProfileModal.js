@@ -34,7 +34,6 @@ function EditProfileModal() {
         `/accounts/MyUser/${localStorage.getItem("id")}/`,
         formdata
       );
-      console.log(res.data);
       setUser({
         ...user,
         photoUrl: imageDetails.image,
@@ -44,7 +43,6 @@ function EditProfileModal() {
       toast.success("Profile Edited!");
     } catch (error) {
       e.preventDefault();
-      console.log(error);
       toast.error("Error Occured");
     }
   };

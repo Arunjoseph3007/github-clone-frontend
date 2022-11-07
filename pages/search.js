@@ -7,7 +7,7 @@ export default function SearchPage(props) {
   const searchWord = query.q || "";
   const repos = [
     {
-      name: "Bhavik",
+      name: "Bhavik1",
       username: "Tester1",
       createdAt: "20-05-2020",
     },
@@ -17,37 +17,37 @@ export default function SearchPage(props) {
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik3",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik4",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik5",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik6",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik7",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik8",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
     {
-      name: "Bhavik2",
+      name: "Bhavik9",
       username: "Tester2",
       createdAt: "20-05-2020",
     },
@@ -61,10 +61,81 @@ export default function SearchPage(props) {
       username: "Tester2",
       createdAt: "20-05-2020",
     },
+    {
+      name: "Bhavik12",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik13",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik14",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik15",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik16",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik17",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik18",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik19",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik20",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik21",
+      username: "Tester2",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik14",
+      username: "Tester8",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik14",
+      username: "Tester5",
+      createdAt: "20-05-2020",
+    },
+    {
+      name: "Bhavik14",
+      username: "Tester3",
+      createdAt: "20-05-2020",
+    },
   ];
+  let pageDetails={
+    curPage: 0,
+    noPages: 2,
+    repoLimit: 10,
+    totalRepos:repos.length,
+  }
   return (
     <div className="">
-      <SearchRepo repos={repos} heading={"Results Match on : " + searchWord} />
+      <SearchRepo repos={repos} heading={"Results Match on : " + searchWord} pageDetails={pageDetails} />
     </div>
   );
 }
