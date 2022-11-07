@@ -11,6 +11,28 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const refresh = async () => {
+    const userId = localStorage.getItem("id");
+    if (!userId) {
+      setUser(null);
+      return;
+    }
+
+    try {
+      const { data } = await axios.get("/accounts/MyUser/" + userId + "/");
+      setUser({
+        userName: data.username,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        photoUrl: process.env.NEXT_PUBLIC_API + data.profile_pic,
+        userId: data.user_id,
+      });
+    } catch (e) {
+      setUser(null);
+    }
+  };
+
   const login = async ({ email, password }) => {
     try {
       const res = await axios.post(`/accounts/login/`, { email, password });
@@ -20,6 +42,8 @@ export default function AuthProvider({ children }) {
       localStorage.setItem("id", res.data.user_id);
 
       toast.success("Login Successfull");
+
+      refresh();
 
       return { ...res.data, success: true };
     } catch (error) {
@@ -71,39 +95,17 @@ export default function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const refresh = async () => {
-    setLoading(true);
-    const userId = localStorage.getItem("id");
-    if (!userId) {
-      setUser(null);
-      return;
-    }
-    try {
-      const { data } = await axios.get("/accounts/MyUser/" + userId + "/");
-      console.log(data.profile_pic)
-      setUser({
-        userName: data.username,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        email: data.email,
-        photoUrl: process.env.NEXT_PUBLIC_API + data.profile_pic,
-        userId: data.user_id,
-      });
-    } catch (e) {
-      setUser(null);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    setLoading(true)
     refresh();
+    setLoading(false)
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user,setUser, loading, error, register, login, logout }}
+      value={{ user, setUser, loading, error, register, login, logout }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
