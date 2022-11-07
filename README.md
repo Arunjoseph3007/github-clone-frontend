@@ -35,7 +35,7 @@
   </p>
   <br />
   <p>
-    <a href="https://gitbase.sytes.net" target="_blank">
+    <a href="http://gitbase.sytes.net" target="_blank">
       <img
         src="./public/banner.jpg"
         alt="Gitbase"
