@@ -23,7 +23,7 @@ export default function Navbar() {
         <Link href="/">
           <>
             <img src="/logo4.png" className="w-12" />
-            <a className="btn btn-ghost normal-case text-xl">GitBase</a>
+            <a className="btn btn-ghost normal-case text-xl hidden md:flex">GitBase</a>
           </>
         </Link>
         {/* //@ Search bar */}
@@ -49,13 +49,9 @@ export default function Navbar() {
       <div className="flex-none ">
         <ul className="menu menu-horizontal p-0">
           <li tabIndex="0">
-            <Link href="/new">
-              <a>
-                <PlusIcon />
-              </a>
-            </Link>
+            <div className="hidden md:flex"><PlusIcon /></div>
             {user ? (
-              <div className="dropdown dropdown-left">
+              <div className="dropdown dropdown-left text-[0.5rem] md:text-[1rem]">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
                     <img src={user.photoUrl} />
@@ -63,7 +59,7 @@ export default function Navbar() {
                 </label>
                 <div
                   tabIndex="0"
-                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[24rem]"
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[10rem] sm:w-[15rem] md:w-[24rem]"
                 >
                   <Link href={`/${user.userName}`}>
                     <div className="flex flex-col items-center gap-2">
@@ -72,7 +68,7 @@ export default function Navbar() {
                         src={user.photoUrl}
                       />
                       <a className="text-xl">{user.userName}</a>
-                      <a className="font-thin text-gray-700">{user.email}</a>
+                      <a className="font-thin text-gray-700 hidden md:flex">{user.email}</a>
                     </div>
                   </Link>
                   <hr className="my-2" />
@@ -80,6 +76,15 @@ export default function Navbar() {
                     <li>
                       <Link href={"/" + user.userName}>
                         <a className="w-full">Profile</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/new">
+                        <a className="flex justify-end md:hidden ">
+                        New Repository
+                          <PlusIcon />
+                          
+                        </a>
                       </Link>
                     </li>
                     <li>
