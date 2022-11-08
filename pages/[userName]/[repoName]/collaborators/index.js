@@ -1,10 +1,11 @@
 import { CollaboratorsIcon } from "@/icons/collaborators";
+import { PlusIcon } from "@/icons/plus";
 import { RemoveUserIcon } from "@/icons/removeUser";
 import { SearchIcon } from "@/icons/search";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
-import axios from "axios";
+import axios from "@/libs/axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useDeferredValue, useEffect } from "react";
 
 const DEFAULT_COLLABORATOR_DATA = [
   {
@@ -46,6 +47,40 @@ const DEFAULT_COLLABORATOR_DATA = [
 
 export default function ColaboratorsPage({ collaborators: collabs }) {
   const [collaborators, setCollaborators] = useState(collabs);
+  const [userSearchTerm, setUserSearchTerm] = useState("");
+  const [userSearcResult, setUserSearchResult] = useState([]);
+  const deferedUserSearchTerm = useDeferredValue(userSearchTerm);
+
+  useEffect(() => {
+    getSearchUserResult();
+  }, [deferedUserSearchTerm]);
+
+  // $ For searching users
+  const getSearchUserResult = async () => {
+    if (!userSearchTerm) {
+      setUserSearchResult([]);
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        `/main/usersearch/?usersearch=${userSearchTerm}`
+      );
+
+      setUserSearchResult(
+        res.data.map((user) => ({
+          userName: user.username,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
+          userId: user.user_id,
+          photoUrl: user.profile_pic,
+        }))
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //$ For removing collaborators
   const removeCollaborator = async (collaborator) => {
@@ -68,6 +103,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
     }
   };
 
+  // & UI
   return (
     <div>
       <div className="p-3 w-full max-w-[1000px] mx-auto">
@@ -103,10 +139,42 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                   <SearchIcon />
                 </button>
                 <input
+                  value={userSearchTerm}
+                  onChange={(e) => setUserSearchTerm(e.target.value)}
                   type="text"
                   placeholder="Search for any user..."
                   className="input input-bordered w-full"
                 />
+              </div>
+
+              <div className="flex flex-col gap-2 mt-3">
+                {userSearcResult?.length === 0 && (
+                  <div className="flex flex-col items-center">
+                    <h1 className="text-2xl font-semibold">OOPS!!</h1>
+                    <h3 className="text-gray-800 text-sm">
+                      No results were found for ther given search term
+                    </h3>
+                  </div>
+                )}
+                {userSearcResult.map((user) => (
+                  <div
+                    className="flex w-full justify-between items-center gap-4 border rounded p-2"
+                    key={user.id}
+                  >
+                    <img
+                      className="avatar rounded-full h-14 aspect-square"
+                      src={user.photoUrl}
+                      alt="user profile pic"
+                    />
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold">{user.userName}</h3>
+                      <h3 className="text-gray-800 text-sm">{user.email}</h3>
+                    </div>
+                    <button className="btn">
+                      <PlusIcon />
+                    </button>
+                  </div>
+                ))}
               </div>
 
               {/* //@ Buttons */}
