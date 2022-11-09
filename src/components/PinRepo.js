@@ -4,7 +4,7 @@ import RepoCards from "./RepoCards";
 function PinRepo({ repos }) {
   return (
     <>
-      <div className="flex justify-center m-5 ">
+      <div className="flex justify-center m-5">
         <h3 className="font-serif text-2xl underline">Popular Repositories</h3>
       </div>
       {repos.length === 0 && (

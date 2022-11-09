@@ -51,7 +51,7 @@ export default function Navbar() {
           <li tabIndex="0">
             <div className="hidden md:flex"><PlusIcon /></div>
             {user ? (
-              <div className="dropdown dropdown-left text-[0.5rem] md:text-[1rem]">
+              <div className="dropdown dropdown-hover dropdown-left text-[0.5rem] md:text-[1rem]">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
                     <img src={user.photoUrl} />

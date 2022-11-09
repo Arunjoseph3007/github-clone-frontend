@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import Camera from "@/icons/camera";
 import axios from "@/libs/axios";
+import { PlusIcon } from "@/icons/plus";
 
 function EditProfileModal() {
   const { user, setUser } = useUser();
@@ -23,8 +24,7 @@ function EditProfileModal() {
   //$ Submit handler
   const handleSubmit = async (e) => {
     try {
-      console.log(imageDetails.imageFile);
-      var formdata = new FormData();
+      const formdata = new FormData();
       formdata.append("first_name", userDetails.firstName);
       formdata.append("last_name", userDetails.lastName);
       if (imageDetails.imageFile) {
@@ -56,6 +56,12 @@ function EditProfileModal() {
   // & UI
   return (
     <div className="modal-box">
+      <label
+        htmlFor="my-modal"
+        className="btn btn-sm rounded-full h-10 w-10 absolute top-5 right-5 rotate-45"
+      >
+        <PlusIcon />
+      </label>
       <h3 className="font-bold text-lg">Your Profile</h3>
       <div>
         {/*//@ Form Page */}

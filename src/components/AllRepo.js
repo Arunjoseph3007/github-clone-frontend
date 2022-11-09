@@ -18,7 +18,7 @@ function AllRepo({ repos }) {
           </Link>
         </div>
       )}
-      <div className="overflow-y-scroll max-h-[80vh]">
+      <div className="overflow-y-scroll md:max-h-[80vh]">
         {repos.map((repo) => (
           <RepoAllElement
             key={repo.name}

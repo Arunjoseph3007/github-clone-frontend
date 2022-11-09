@@ -2,16 +2,16 @@
 import AllRepo from "@/components/AllRepo";
 import PinRepo from "@/components/PinRepo";
 import EditProfileModal from "@/components/EditProfileModal";
+import Navbar from "@/components/Navbar";
 // @ Icons
 import CircularStack from "@/icons/CircularStack";
 import { DocumentIcon } from "@/icons/documents";
 
 import Link from "next/link";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
-import Navbar from "@/components/Navbar";
 
 export default function UserPage({ repos = [], user }) {
   const [active, setActive] = useState(true);
@@ -26,71 +26,89 @@ export default function UserPage({ repos = [], user }) {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="md:h-screen flex flex-col">
       <div className="border-b-4 divide-slate-500">
-      <Navbar />
+        <Navbar />
       </div>
-      
-    <div className="bg-base-200  flex">
-      <div className="w-[30%] bg-white border-r-4 divide-red-700">
-        <div className="flex justify-center mt-[2rem]">
-          <Link href="/new">
-            <button className="btn btn-sm md:btn-wide">
-              Create New Repository
-            </button>
-          </Link>
-        </div>
 
-        <div className="avatar flex justify-center mt-[2rem]">
-          <div className="w-[15rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
-            <img className="overflow-hidden opacity-90 " src={user.photoUrl} />
+      <div className="bg-base-200 flex flex-1 flex-col md:flex-row">
+        {/* //? SIDE-BAR */}
+        <div className="md:w-[30%] bg-white border-r-4 divide-slate-700 pb-5">
+          <div className="flex justify-center mt-[2rem]">
+            {/* //@ Create repo btn */}
+            {myUser?.userName === query.userName && (
+              <Link href="/new">
+                <a className="btn btn-sm md:btn-wide">Create New Repository</a>
+              </Link>
+            )}
           </div>
-        </div>
-        <div className="flex flex-col mt-6">
-          <div className="flex justify-center text-4xl font-serif">
-            {user.firstName} {user.lastName}
-          </div>
-          <div className="flex justify-center text-xl font-sans">
-            {user.userName}
-          </div>
-        </div>
-        {myUser?.userName === query.userName && (
-          <>
-            <div className="flex justify-center mt-[2rem]">
-              <label
-                htmlFor="my-modal"
-                className="btn btn-outline btn-sm md:btn-wide"
-              >
-                Edit Profile
-              </label>
+
+          {/* //@ User details */}
+          <div className="avatar flex justify-center mt-[2rem]">
+            <div className="w-[15rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
+              <img
+                className="overflow-hidden opacity-90 "
+                src={user.photoUrl}
+              />
             </div>
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal">
-              <EditProfileModal />
+          </div>
+          <div className="flex flex-col mt-6">
+            <div className="flex justify-center text-4xl font-serif">
+              {user.firstName} {user.lastName}
             </div>
-          </>
-        )}
-      </div>
-      <div className="w-[70%]">
-        <div className="">
-          {active ? (
-            <PinRepo repos={repos.slice(0, 4)} />
-          ) : (
-            <AllRepo repos={repos} />
+            <div className="flex justify-center text-xl font-sans">
+              {user.userName}
+            </div>
+          </div>
+
+          {/* //@ Edit profile btn */}
+          {myUser?.userName === query.userName && (
+            <>
+              <div className="flex justify-center mt-[2rem]">
+                <label
+                  htmlFor="my-modal"
+                  className="btn btn-outline btn-sm md:btn-wide"
+                >
+                  Edit Profile
+                </label>
+              </div>
+              <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <div className="modal">
+                <EditProfileModal />
+              </div>
+            </>
           )}
         </div>
-        <div className="btm-nav w-[70%] left-auto">
-          <button className={`${active ? "active" : ""}`} onClick={onPinClick}>
-            <DocumentIcon />
-            <span className="btm-nav-label">Popular Repositories</span>
-          </button>
-          <button className={`${active ? "" : "active"}`} onClick={onAllClick}>
-            <CircularStack />
-            <span className="btm-nav-label">All Repositories</span>
-          </button>
+
+        {/* //? MAIN WINDOW  (Right) */}
+        <div className="md:w-[70%] flex flex-col flex-1 mb-[7rem] px-2">
+          <div className="flex-1">
+            {active ? (
+              <PinRepo repos={repos.slice(0, 4)} />
+            ) : (
+              <AllRepo repos={repos} />
+            )}
+          </div>
+
+          {/* //@ Bottom tabs */}
+          <div className="btm-nav md:w-[70%] left-auto">
+            <button
+              className={`${active ? "active" : ""}`}
+              onClick={onPinClick}
+            >
+              <DocumentIcon />
+              <span className="btm-nav-label">Popular Repositories</span>
+            </button>
+            <button
+              className={`${active ? "" : "active"}`}
+              onClick={onAllClick}
+            >
+              <CircularStack />
+              <span className="btm-nav-label">All Repositories</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
@@ -102,22 +120,26 @@ export const getServerSideProps = async (ctx) => {
       `${process.env.NEXT_PUBLIC_API}/main/getuserrepos?username=${userName}`
     );
 
-    const repos = repoRes.data.map((repo) => ({
+    if (!repoRes.data.UserDetails) return { notFound: true };
+
+    const repos = repoRes.data.RepoDetails.map((repo) => ({
       name: repo.repo_name,
       id: repo.repo_id,
       isPublic: repo.is_public,
       createdAt: repo.date_of_creation,
     }));
 
+    const user = repoRes.data.UserDetails;
+
     return {
       props: {
         repos: repos,
         user: {
-          userName: "ArunJoseph3007",
-          lastName: "Joseph",
-          firstName: "Arun",
-          email: "arunjoseph3007@gmail.com",
-          photoUrl: "https://placeimg.com/200/200/people",
+          userName: user.username,
+          lastName: user.last_name,
+          firstName: user.first_name,
+          email: user.email,
+          photoUrl: process.env.NEXT_PUBLIC_API + user.profile_pic,
         },
       },
     };

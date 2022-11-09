@@ -147,6 +147,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                 />
               </div>
 
+              {/* //@ List of users */}
               <div className="flex flex-col gap-2 mt-3">
                 {userSearcResult?.length === 0 && (
                   <div className="flex flex-col items-center">
