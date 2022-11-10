@@ -25,6 +25,8 @@ export default function AuthProvider({ children }) {
         firstName: data.first_name,
         lastName: data.last_name,
         email: data.email,
+        dob: data.dob,
+        bio: data.bio,
         photoUrl: process.env.NEXT_PUBLIC_API + data.profile_pic,
         userId: data.user_id,
       });
@@ -96,9 +98,9 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     refresh();
-    setLoading(false)
+    setLoading(false);
   }, []);
 
   return (

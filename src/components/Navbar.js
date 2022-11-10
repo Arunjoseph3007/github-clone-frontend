@@ -23,7 +23,9 @@ export default function Navbar() {
         <Link href="/">
           <>
             <img src="/logo4.png" className="w-12" />
-            <a className="btn btn-ghost normal-case text-xl hidden md:flex">GitBase</a>
+            <a className="btn btn-ghost normal-case text-xl hidden md:flex">
+              GitBase
+            </a>
           </>
         </Link>
         {/* //@ Search bar */}
@@ -36,7 +38,7 @@ export default function Navbar() {
             className="input w-full border-none outline-none"
           />
           <button
-            disable={!searchTerm}
+            disable={!!!searchTerm}
             onClick={handleSearch}
             className="btn-square"
           >
@@ -49,9 +51,11 @@ export default function Navbar() {
       <div className="flex-none ">
         <ul className="menu menu-horizontal p-0">
           <li tabIndex="0">
-            <div className="hidden md:flex"><PlusIcon /></div>
+            <div className="hidden md:flex">
+              <PlusIcon />
+            </div>
             {user ? (
-              <div className="dropdown dropdown-hover dropdown-left text-[0.5rem] md:text-[1rem]">
+              <div className="dropdown dropdown-end text-[0.5rem] md:text-[1rem]">
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
                     <img src={user.photoUrl} />
@@ -59,16 +63,18 @@ export default function Navbar() {
                 </label>
                 <div
                   tabIndex="0"
-                  className="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 rounded-box w-[10rem] sm:w-[15rem] md:w-[24rem]"
+                  className="menu menu-compact dropdown-content mt-3 p-2 bg-base-100 rounded-box w-screen max-w-[30rem] top-[100%] shadow-2xl"
                 >
                   <Link href={`/${user.userName}`}>
                     <div className="flex flex-col items-center gap-2">
                       <img
-                        className="avatar h-[4rem] rounded-full"
+                        className="avatar h-[4rem] rounded-full aspect-square"
                         src={user.photoUrl}
                       />
                       <a className="text-xl">{user.userName}</a>
-                      <a className="font-thin text-gray-700 hidden md:flex">{user.email}</a>
+                      <a className="font-thin text-gray-700 hidden md:flex">
+                        {user.email}
+                      </a>
                     </div>
                   </Link>
                   <hr className="my-2" />
@@ -81,14 +87,13 @@ export default function Navbar() {
                     <li>
                       <Link href="/new">
                         <a className="flex justify-end md:hidden ">
-                        New Repository
+                          New Repository
                           <PlusIcon />
-                          
                         </a>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/">
+                      <Link href="/settings">
                         <a className="w-full">Settings</a>
                       </Link>
                     </li>
