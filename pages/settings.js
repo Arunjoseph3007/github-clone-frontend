@@ -37,8 +37,8 @@ export default function SettingsPage(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("id");
-    if (!token) {
+    const userId = localStorage.getItem("id");
+    if (!userId) {
       toast.error("Login to continue");
       router.push("/login");
       return;
@@ -54,7 +54,7 @@ export default function SettingsPage(props) {
         formdata.append("profile_pic", userDetails.imageFile, "img.jpg");
       }
       const { data } = await axios.patch(
-        `/accounts/MyUser/${token}/`,
+        `/accounts/MyUser/${userId}/`,
         formdata
       );
 
@@ -70,6 +70,26 @@ export default function SettingsPage(props) {
         userId: data.user_id,
       });
       toast.success("Profile Edited!");
+    } catch (error) {
+      toast.error("Error Occured");
+    }
+  };
+
+  //$ Handle delete user
+  const handleDeleteUser = async (e) => {
+    e.preventDefault();
+
+    const userId = localStorage.getItem("id");
+    if (!userId) {
+      toast.error("Login to continue");
+      router.push("/login");
+      return;
+    }
+    try {
+      const res = await axios.delete(`/accounts/MyUser/${userId}`);
+      console.log(res);
+      toast.success("Account deleted");
+      router.push("/");
     } catch (error) {
       toast.error("Error Occured");
     }
@@ -192,13 +212,47 @@ export default function SettingsPage(props) {
               </div>
 
               {/* //@ Submit */}
-              <div className="modal-action flex justify-center">
+              <div className="flex justify-center">
                 <button
-                  className="btn btn-sm md:btn-wide mb-2"
+                  className="btn btn-sm md:btn-wide my-2"
                   onClick={handleSubmit}
                 >
                   Edit details
                 </button>
+              </div>
+
+              <div className="border w-full" />
+
+              {/* //@ Delete User */}
+              <label
+                htmlFor="my-modal"
+                className="btn md:btn-wide btn-error my-2"
+              >
+                Delete this user
+              </label>
+
+              {/* //@ Delete user modal */}
+              <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">Delete Your account!</h3>
+                  <p className="py-4">
+                    Do you really want to delete this account. This is
+                    irreversible and you wont be able to retrive any of your
+                    repositories ever again
+                  </p>
+                  <div className="modal-action">
+                    <button
+                      onClick={handleDeleteUser}
+                      className="btn btn-error"
+                    >
+                      Delete
+                    </button>
+                    <label htmlFor="my-modal" className="btn">
+                      Close
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </form>
