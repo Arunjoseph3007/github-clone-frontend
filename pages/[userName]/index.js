@@ -27,13 +27,13 @@ export default function UserPage({ repos = [], user }) {
 
   return (
     <div className="md:h-screen flex flex-col">
-      <div className="border-b-4 divide-slate-500">
+      <div >
         <Navbar />
       </div>
 
       <div className="bg-base-200 flex flex-1 flex-col md:flex-row">
         {/* //? SIDE-BAR */}
-        <div className="md:w-[30%] bg-white border-r-4 divide-slate-700 pb-5">
+        <div className="md:w-[30%] bg-white  pb-5">
           <div className="flex justify-center mt-[2rem]">
             {/* //@ Create repo btn */}
             {myUser?.userName === query.userName && (
