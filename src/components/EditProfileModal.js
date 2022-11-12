@@ -50,7 +50,8 @@ function EditProfileModal() {
   // ? Handles Image to URL
   function uploadImage() {
     let file = document.getElementById("fileInput").files[0];
-    setImageDetails({ image: URL.createObjectURL(file), imageFile: file });
+    if (file)
+      setImageDetails({ image: URL.createObjectURL(file), imageFile: file });
   }
 
   // & UI
