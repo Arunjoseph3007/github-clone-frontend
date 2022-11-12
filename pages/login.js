@@ -38,7 +38,10 @@ export default function Login() {
         </div>
 
         <div className="card text-[0.8rem] md:text-[0.875rem] flex-shrink-0 w-full max-w-[13rem] md:max-w-sm shadow-lg md:shadow-2xl bg-base-100">
-          <form onSubmit={handleSubmit} className="card-body p-[1.7rem] sm:p-[2rem]">
+          <form
+            onSubmit={handleSubmit}
+            className="card-body p-[1.7rem] sm:p-[2rem]"
+          >
             {/* //@ Email */}
             <div className="form-control">
               <label className="label">
@@ -76,7 +79,9 @@ export default function Login() {
               </label>
             </div>
             <div className="form-control mt-3">
-              <button className="btn btn-primary btn-xs sm:btn-sm">Login</button>
+              <button className="btn btn-primary btn-xs sm:btn-sm">
+                Login
+              </button>
             </div>
             <div className="divider my-[0.5rem] md:my-[1rem]">OR</div>
             <div className="mt-1">
