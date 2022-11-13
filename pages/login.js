@@ -29,16 +29,19 @@ export default function Login() {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col ">
         <div className="avatar">
-          <div div className="w-24">
+          <div div className="w-20 md:w-24">
             <img src="/logo4.png" alt="Git" className="object-contain" />
           </div>
         </div>
         <div className="text-center ">
-          <h1 className="text-xl font-bold">Sign-in to GitBase</h1>
+          <h1 className="text-sm md:text-xl font-bold">Sign-in to GitBase</h1>
         </div>
 
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={handleSubmit} className="card-body">
+        <div className="card text-[0.8rem] md:text-[0.875rem] flex-shrink-0 w-full max-w-[13rem] md:max-w-sm shadow-lg md:shadow-2xl bg-base-100">
+          <form
+            onSubmit={handleSubmit}
+            className="card-body p-[1.7rem] sm:p-[2rem]"
+          >
             {/* //@ Email */}
             <div className="form-control">
               <label className="label">
@@ -76,9 +79,11 @@ export default function Login() {
               </label>
             </div>
             <div className="form-control mt-3">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary btn-xs sm:btn-sm">
+                Login
+              </button>
             </div>
-            <div className="divider">OR</div>
+            <div className="divider my-[0.5rem] md:my-[1rem]">OR</div>
             <div className="mt-1">
               New to GitBase?{" "}
               <Link href="/signup">

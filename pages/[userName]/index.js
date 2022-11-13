@@ -17,7 +17,7 @@ export default function UserPage({ repos = [], user }) {
   const [active, setActive] = useState(true);
   const { query } = useRouter();
   const { user: myUser } = useUser();
-
+  const isLogedin = myUser?.userName==user.userName;
   function onPinClick() {
     setActive(true);
   }
@@ -27,13 +27,13 @@ export default function UserPage({ repos = [], user }) {
 
   return (
     <div className="md:h-screen flex flex-col">
-      <div className="border-b-4 divide-slate-500">
+      <div >
         <Navbar />
       </div>
 
       <div className="bg-base-200 flex flex-1 flex-col md:flex-row">
         {/* //? SIDE-BAR */}
-        <div className="md:w-[30%] bg-white border-r-4 divide-slate-700 pb-5">
+        <div className="md:w-[30%] bg-white  pb-5">
           <div className="flex justify-center mt-[2rem]">
             {/* //@ Create repo btn */}
             {myUser?.userName === query.userName && (
@@ -48,13 +48,13 @@ export default function UserPage({ repos = [], user }) {
             <div className="w-[15rem] rounded-full overflow-hidden shadow-xl border border-base-300 ">
               <img
                 className="overflow-hidden opacity-90 "
-                src={user.photoUrl}
+                src={isLogedin?myUser.photoUrl:user.photoUrl}
               />
             </div>
           </div>
           <div className="flex flex-col mt-6">
             <div className="flex justify-center text-4xl font-serif">
-              {user.firstName} {user.lastName}
+              {isLogedin?myUser.firstName:user.firstName} {isLogedin?myUser.lastName:user.lastName}
             </div>
             <div className="flex justify-center text-xl font-sans">
               {user.userName}

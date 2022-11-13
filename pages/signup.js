@@ -35,36 +35,72 @@ export default function Signup() {
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content gap-[1rem] md:gap-[8rem] flex-col lg:flex-row">
-        <img src="logo3.png" className="max-w-sm rounded-lg" />
+      <div className="hero-content p-[0.5rem] sm:p-[1rem] gap-[1rem] lg:gap-[8rem] flex-col lg:flex-row">
+        <img
+          src="logo3.png"
+          className="max-w-[10rem]  sm:max-w-sm rounded-lg"
+        />
 
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card text-[0.8rem] md:text-[0.875rem] flex-shrink-0 w-full max-w-[15rem] sm:max-w-sm  shadow-lg md:shadow-2xl bg-base-100">
           {/* //? Form */}
-          <form onSubmit={handleSubmit} className="card-body">
+          <form
+            onSubmit={handleSubmit}
+            className="card-body gap-[0rem] sm:gap-[0.5rem] p-[1.4rem] sm:p-[2rem]"
+          >
             {/* //@ First name last name */}
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <div className="flex flex-row justify-around">
-                <input
-                  type="text"
-                  placeholder="first-name"
-                  name="firstName"
-                  onChange={handleChange}
-                  className="input input-bordered"
-                  style={{ width: "9.5rem" }}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="last-name"
-                  className="input input-bordered"
-                  style={{ width: "9.5rem" }}
-                  name="lastName"
-                  onChange={handleChange}
-                  required
-                />
+              <div className="hidden md:block">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <div className="flex flex-row justify-around">
+                  <input
+                    type="text"
+                    placeholder="first-name"
+                    name="firstName"
+                    onChange={handleChange}
+                    className="input input-bordered"
+                    style={{ width: "9.5rem" }}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="last-name"
+                    className="input input-bordered"
+                    style={{ width: "9.5rem" }}
+                    name="lastName"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="block md:hidden">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">First Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="first-name"
+                    name="firstName"
+                    onChange={handleChange}
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Last Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="last-name"
+                    className="input input-bordered"
+                    name="lastName"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
             </div>
 
@@ -134,19 +170,24 @@ export default function Signup() {
 
             {/* //@ Submit btn */}
             <div className="form-control mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary btn-xs sm:btn-sm"
+              >
                 Sign-up
               </button>
             </div>
 
             {/* //@ Redirect to login */}
             <div className="mt-1 flex justify-center">
-              Already have an account?{" "}
-              <Link href="/login">
-                <a className="link link-hover" style={{ color: "blue" }}>
-                  Login
-                </a>
-              </Link>
+              <div>
+                Already have an account?{" "}
+                <Link href="/login">
+                  <a className="link link-hover" style={{ color: "blue" }}>
+                    Login
+                  </a>
+                </Link>
+              </div>
             </div>
           </form>
         </div>

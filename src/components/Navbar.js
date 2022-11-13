@@ -52,7 +52,7 @@ export default function Navbar() {
         <ul className="menu menu-horizontal p-0">
           <li tabIndex="0">
             <div className="hidden md:flex">
-              <PlusIcon />
+            <Link href="/new"><button><PlusIcon /></button></Link>
             </div>
             {user ? (
               <div className="dropdown dropdown-end text-[0.5rem] md:text-[1rem]">
