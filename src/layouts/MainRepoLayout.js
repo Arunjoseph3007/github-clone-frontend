@@ -59,9 +59,9 @@ export default function MainRepoLayout(page) {
         <section className="p-4">
           {/* //? Title section */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-5 ">
+            <div className="flex items-center gap-3 w-screen">
               {isPublic ? <PublicIcon /> : <LockIcon />}
-              <h1 className="text-2xl text-blue-500">
+              <h1 className="text-lg md:text-2xl text-blue-500 dot-dot-dot">
                 <Link href={`/${query.userName}`}>{query.userName}</Link>
                 <span>/</span>
                 <Link href={basePath}>{query.repoName}</Link>
