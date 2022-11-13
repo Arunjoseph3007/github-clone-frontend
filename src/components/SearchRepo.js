@@ -53,7 +53,7 @@ function SearchRepo({ repos, heading,pageDetails }) {
             />
           ))}
       </div>
-      <div className="flex  flex-row self-center justify-center ">
+      <div className={`flex ${repos.length?" ":"hidden "}flex-row self-center justify-center `}>
         <div className="btn-group ">
           <button className={`btn ${(pagination.curPage==0)?"btn-disabled bg-[#181a2a] text-white":""}`} onClick={backwardClick}>
             «

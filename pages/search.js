@@ -17,8 +17,8 @@ export default function SearchPage(props) {
       setRepos(
         res.data.map((repo) => ({
           name: repo.repo_name,
-          description: "repo.desciption",
-          username: repo.username,
+          description: " ",
+          username: repo.user_details.username,
           createdAt: repo.date_of_creation,
         }))
       );
