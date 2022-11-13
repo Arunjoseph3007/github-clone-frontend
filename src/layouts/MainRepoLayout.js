@@ -59,7 +59,7 @@ export default function MainRepoLayout(page) {
         <section className="p-4">
           {/* //? Title section */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 w-screen">
+            <div className="flex items-center gap-3 flex-1">
               {isPublic ? <PublicIcon /> : <LockIcon />}
               <h1 className="text-lg md:text-2xl text-blue-500 dot-dot-dot">
                 <Link href={`/${query.userName}`}>{query.userName}</Link>
@@ -69,7 +69,7 @@ export default function MainRepoLayout(page) {
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
             </div>
 
-            <div className="hidden md:flex items-center gap-5 py-3 ">
+            <div className="hidden md:flex items-center gap-5 py-3">
               <Link href={basePath + "fork"}>
                 <button className="btn gap-2">
                   <BranchIcon />
