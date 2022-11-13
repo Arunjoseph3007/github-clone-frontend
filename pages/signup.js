@@ -49,34 +49,11 @@ export default function Signup() {
           >
             {/* //@ First name last name */}
             <div className="form-control">
-              <div className="hidden md:block">
-                <label className="label">
+                <label className="label hidden md:block">
                   <span className="label-text">Name</span>
                 </label>
-                <div className="flex flex-row justify-around">
-                  <input
-                    type="text"
-                    placeholder="first-name"
-                    name="firstName"
-                    onChange={handleChange}
-                    className="input input-bordered"
-                    style={{ width: "9.5rem" }}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="last-name"
-                    className="input input-bordered"
-                    style={{ width: "9.5rem" }}
-                    name="lastName"
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="block md:hidden">
-                <div className="form-control">
-                  <label className="label">
+                <div className="flex flex-col md:flex-row justify-around">
+                  <label className="label block md:hidden">
                     <span className="label-text">First Name</span>
                   </label>
                   <input
@@ -85,22 +62,21 @@ export default function Signup() {
                     name="firstName"
                     onChange={handleChange}
                     className="input input-bordered"
+                    style={{ width: "9.5rem" }}
                     required
                   />
-                </div>
-                <div className="form-control">
-                  <label className="label">
+                  <label className="label block md:hidden">
                     <span className="label-text">Last Name</span>
                   </label>
                   <input
                     type="text"
                     placeholder="last-name"
                     className="input input-bordered"
+                    style={{ width: "9.5rem" }}
                     name="lastName"
                     onChange={handleChange}
                     required
                   />
-                </div>
               </div>
             </div>
 

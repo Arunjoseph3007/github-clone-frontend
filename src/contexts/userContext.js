@@ -62,6 +62,7 @@ export default function AuthProvider({ children }) {
     userName,
   }) => {
     try {
+      localStorage.removeItem('token')
       const res = await axios.post(`/accounts/register/`, {
         first_name: firstName,
         last_name: lastName,
