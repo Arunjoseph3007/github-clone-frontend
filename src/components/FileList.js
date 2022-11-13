@@ -28,7 +28,7 @@ export default function FileList({ data }) {
               <FolderIcon />
             </span>
             <Link href={`/${userName}/${repoName}/tree/${branch}/${dir.name}`}>
-              <a className="w-full md:w-[250px] text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
+              <a className="w-full md:w-[250px] max-w-[170px] text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
                 {dir.name.split("/").pop()}
               </a>
             </Link>
@@ -40,7 +40,9 @@ export default function FileList({ data }) {
                 {dir.lastCommitMessage}
               </a>
             </Link>
-            <p className="shrink-0">{format(dir.lastCommitDate)}</p>
+            <p className="shrink-0 hidden md:block">
+              {format(dir.lastCommitDate)}
+            </p>
           </div>
         ))}
 
@@ -49,26 +51,28 @@ export default function FileList({ data }) {
           <div
             className={`${
               dirLen + i !== len - 1 && "border-b"
-            } text-white border-gray-500 p-2 py-3 flex gap-4 w-full`}
+            } text-white border-gray-500 p-2 py-3 flex gap-2 w-full`}
             key={file.objectId}
           >
             <span className="w-10">
               <LanguageIcon name={file.name} />
             </span>
             <Link href={`/${userName}/${repoName}/blob/${branch}/${file.name}`}>
-              <a className="w-full md:w-[250px] text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
+              <a className="flex-1 md:w-[250px] w-[170px] dot-dot-dot cursor-pointer">
                 {file.name.split("/").pop()}
               </a>
             </Link>
             <Link href={`/${userName}/${repoName}/commit/${file.lastCommit}`}>
               <a
                 data-tip={file.author}
-                className="w-full hidden md:block text-ellipsis overflow-hidden whitespace-nowrap text-sm text-gray-300 "
+                className="flex-1 hidden md:block dot-dot-dot text-sm text-gray-300 "
               >
                 {file.lastCommitMessage}
               </a>
             </Link>
-            <p className="shrink-0">{format(file.lastCommitDate)}</p>
+            <p className="shrink-0 hidden md:block">
+              {format(file.lastCommitDate)}
+            </p>
           </div>
         ))}
       </div>
