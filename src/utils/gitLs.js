@@ -18,7 +18,6 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
     const allFilesAndDirs = result.toString().split("\n");
 
     //@ Extract al directories and files
-    console.log(allFilesAndDirs);
     allFilesAndDirs
       .filter((a) => a)
       .forEach((elm) => {

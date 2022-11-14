@@ -6,6 +6,7 @@ import MainRepoLayout from "@/layouts/MainRepoLayout";
 import axios from "@/libs/axios";
 import Link from "next/link";
 import { useState, useDeferredValue, useEffect } from "react";
+import { useUser } from "@/context/userContext";
 
 const DEFAULT_COLLABORATOR_DATA = [
   {
@@ -46,16 +47,21 @@ const DEFAULT_COLLABORATOR_DATA = [
 ];
 
 export default function ColaboratorsPage({ collaborators: collabs }) {
+  
   const [collaborators, setCollaborators] = useState(collabs);
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [userSearcResult, setUserSearchResult] = useState([]);
   const deferedUserSearchTerm = useDeferredValue(userSearchTerm);
-
+  const { user:muUser} = useUser();
+  const [newColabs,setNewColabs]=useState([]);
   useEffect(() => {
     getSearchUserResult();
   }, [deferedUserSearchTerm]);
 
   // $ For searching users
+  function removeNewColab(serUser){
+    return  !(newColabs.includes(serUser.user_id));
+  }
   const getSearchUserResult = async () => {
     if (!userSearchTerm) {
       setUserSearchResult([]);
@@ -66,9 +72,8 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
       const res = await axios.get(
         `/main/usersearch/?usersearch=${userSearchTerm}`
       );
-
       setUserSearchResult(
-        res.data.map((user) => ({
+        res.data.filter(removeNewColab).map((user) => ({
           userName: user.username,
           firstName: user.first_name,
           lastName: user.last_name,
@@ -82,6 +87,10 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
     }
   };
 
+  function addButtonClick(user){
+    setNewColabs((newColabs)=>[...newColabs,user.userId]);
+    console.log(newColabs)
+  }
   //$ For removing collaborators
   const removeCollaborator = async (collaborator) => {
     try {
@@ -96,7 +105,13 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
   // $ For adding collaborators
   const addCollaborator = async (collaborator) => {
     try {
-      const res = await axios.post("some url");
+      const res = await axios.post("/main/contributor/",{
+          "id":user.user_id,
+          "has_read_write_access": true,
+          "contributor_user": 0,
+          "repo_id": 0
+      });
+
       setCollaborators((prev) => [...prev, res.data]);
     } catch (error) {
       console.log(error);
@@ -171,7 +186,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                       <h3 className="text-xl font-semibold">{user.userName}</h3>
                       <h3 className="text-gray-800 text-sm">{user.email}</h3>
                     </div>
-                    <button className="btn">
+                    <button className="btn" onClick={(e)=>addButtonClick(user)}>
                       <PlusIcon />
                     </button>
                   </div>
