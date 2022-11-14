@@ -18,11 +18,12 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
     const allFilesAndDirs = result.toString().split("\n");
 
     //@ Extract al directories and files
+    console.log(allFilesAndDirs);
     allFilesAndDirs
       .filter((a) => a)
       .forEach((elm) => {
         const name = elm.split("\t").pop();
-        const commitName = elm.replaceAll("\t", " ").split(" ")[2];
+        const commitName = elm.replace("\t", " ").split(" ")[2];
 
         if (elm.split(" ")[1] === "tree") {
           dirs.push({ name, objectId: commitName });
