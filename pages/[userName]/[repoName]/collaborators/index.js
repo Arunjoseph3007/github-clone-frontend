@@ -47,21 +47,18 @@ const DEFAULT_COLLABORATOR_DATA = [
 ];
 
 export default function ColaboratorsPage({ collaborators: collabs }) {
-  
   const [collaborators, setCollaborators] = useState(collabs);
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [userSearcResult, setUserSearchResult] = useState([]);
   const deferedUserSearchTerm = useDeferredValue(userSearchTerm);
-  const { user:muUser} = useUser();
-  const [newColabs,setNewColabs]=useState([]);
+  const { user: muUser } = useUser();
+  const [newColabs, setNewColabs] = useState();
+  const [show, setShow] = useState(false);
   useEffect(() => {
     getSearchUserResult();
   }, [deferedUserSearchTerm]);
 
   // $ For searching users
-  function removeNewColab(serUser){
-    return  !(newColabs.includes(serUser.user_id));
-  }
   const getSearchUserResult = async () => {
     if (!userSearchTerm) {
       setUserSearchResult([]);
@@ -73,7 +70,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
         `/main/usersearch/?usersearch=${userSearchTerm}`
       );
       setUserSearchResult(
-        res.data.filter(removeNewColab).map((user) => ({
+        res.data.map((user) => ({
           userName: user.username,
           firstName: user.first_name,
           lastName: user.last_name,
@@ -87,9 +84,10 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
     }
   };
 
-  function addButtonClick(user){
-    setNewColabs((newColabs)=>[...newColabs,user.userId]);
-    console.log(newColabs)
+  function addButtonClick(user) {
+    setNewColabs(user);
+    setShow(true);
+    console.log(newColabs);
   }
   //$ For removing collaborators
   const removeCollaborator = async (collaborator) => {
@@ -105,11 +103,11 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
   // $ For adding collaborators
   const addCollaborator = async (collaborator) => {
     try {
-      const res = await axios.post("/main/contributor/",{
-          "id":user.user_id,
-          "has_read_write_access": true,
-          "contributor_user": 0,
-          "repo_id": 0
+      const res = await axios.post("/main/contributor/", {
+        id: user.user_id,
+        has_read_write_access: true,
+        contributor_user: 0,
+        repo_id: 0,
       });
 
       setCollaborators((prev) => [...prev, res.data]);
@@ -123,7 +121,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
     <div>
       <div className="p-3 w-full max-w-[1000px] mx-auto">
         <div className="flex items-center justify-between mb-3">
-          <h1 className="text-2xl">Manage Acces</h1>
+          <h1 className="text-2xl">Manage Access</h1>
           <label
             htmlFor="modal-for-add-people"
             className="btn btn-success gap-2 modal-button"
@@ -147,59 +145,98 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                 You can controll the access given to the user, and of course you
                 can remove them any time
               </p>
+              <div>
+                {/* //@ Search bar */}
+                <div className={`input-group ${show ? " hidden " : " "}`}>
+                  <button className="btn btn-square">
+                    <SearchIcon />
+                  </button>
+                  <input
+                    value={userSearchTerm}
+                    onChange={(e) => setUserSearchTerm(e.target.value)}
+                    type="text"
+                    placeholder="Search for any user..."
+                    className="input input-bordered w-full"
+                  />
+                </div>
 
-              {/* //@ Search bar */}
-              <div className="input-group">
-                <button className="btn btn-square">
-                  <SearchIcon />
-                </button>
-                <input
-                  value={userSearchTerm}
-                  onChange={(e) => setUserSearchTerm(e.target.value)}
-                  type="text"
-                  placeholder="Search for any user..."
-                  className="input input-bordered w-full"
-                />
-              </div>
-
-              {/* //@ List of users */}
-              <div className="flex flex-col gap-2 mt-3">
-                {userSearcResult?.length === 0 && (
-                  <div className="flex flex-col items-center">
-                    <h1 className="text-2xl font-semibold">OOPS!!</h1>
-                    <h3 className="text-gray-800 text-sm">
-                      No results were found for ther given search term
-                    </h3>
-                  </div>
-                )}
-                {userSearcResult.map((user) => (
-                  <div
-                    className="flex w-full justify-between items-center gap-4 border rounded p-2"
-                    key={user.id}
-                  >
-                    <img
-                      className="avatar rounded-full h-14 aspect-square"
-                      src={user.photoUrl}
-                      alt="user profile pic"
-                    />
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold">{user.userName}</h3>
-                      <h3 className="text-gray-800 text-sm">{user.email}</h3>
+                {/* Single New Collaborator Display */}
+                {show ? (
+                  <div className={`flex flex-col gap-2 mt-3 }`}>
+                    <div
+                      className="flex w-full justify-between items-center gap-4 border rounded p-2"
+                      key={newColabs["id"]}
+                    >
+                      <img
+                        className="avatar rounded-full h-14 aspect-square"
+                        src={newColabs["photoURL"]}
+                        alt="user profile pic"
+                      />
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold">
+                          {newColabs["userName"]}
+                        </h3>
+                        <h3 className="text-gray-800 text-sm">
+                          {newColabs["email"]}
+                        </h3>
+                      </div>
                     </div>
-                    <button className="btn" onClick={(e)=>addButtonClick(user)}>
-                      <PlusIcon />
-                    </button>
                   </div>
-                ))}
+                ) : (
+                  ""
+                )}
+                {/* //@ List of users */}
+                <div
+                  className={`flex flex-col gap-2 mt-3 ${
+                    show ? " hidden " : " "
+                  }`}
+                >
+                  {userSearcResult?.length === 0 && (
+                    <div className="flex flex-col items-center">
+                      <h1 className="text-2xl font-semibold">OOPS!!</h1>
+                      <h3 className="text-gray-800 text-sm">
+                        No results were found for ther given search term
+                      </h3>
+                    </div>
+                  )}
+                  {userSearcResult.map((user) => (
+                    <div
+                      className="flex w-full justify-between items-center gap-4 border rounded p-2"
+                      key={user.id}
+                    >
+                      <img
+                        className="avatar rounded-full h-14 aspect-square"
+                        src={user.photoUrl}
+                        alt="user profile pic"
+                      />
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold">
+                          {user.userName}
+                        </h3>
+                        <h3 className="text-gray-800 text-sm">{user.email}</h3>
+                      </div>
+                      <button
+                        className="btn"
+                        onClick={(e) => addButtonClick(user)}
+                      >
+                        <PlusIcon />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* //@ Buttons */}
-              <div className="modal-action">
-                <button className="btn btn-success">Add collaborator</button>
-                <label htmlFor="modal-for-add-people" className="btn">
-                  Close
-                </label>
-              </div>
+              {show ? (
+                <div className="modal-action">
+                  <button className="btn btn-success">Add collaborator</button>
+                  <label htmlFor="modal-for-add-people" className="btn">
+                    Close
+                  </label>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
