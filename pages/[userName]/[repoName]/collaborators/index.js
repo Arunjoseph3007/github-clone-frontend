@@ -6,7 +6,9 @@ import MainRepoLayout from "@/layouts/MainRepoLayout";
 import axios from "@/libs/axios";
 import Link from "next/link";
 import { useState, useDeferredValue, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
+import { toast } from "react-toastify";
 
 const DEFAULT_COLLABORATOR_DATA = [
   {
@@ -51,9 +53,10 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [userSearcResult, setUserSearchResult] = useState([]);
   const deferedUserSearchTerm = useDeferredValue(userSearchTerm);
-  const { user: muUser } = useUser();
+  const { user: myUser } = useUser();
   const [newColabs, setNewColabs] = useState();
   const [show, setShow] = useState(false);
+  const { query, asPath } = useRouter();
   useEffect(() => {
     getSearchUserResult();
   }, [deferedUserSearchTerm]);
@@ -87,7 +90,11 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
   function addButtonClick(user) {
     setNewColabs(user);
     setShow(true);
-    console.log(newColabs);
+  }
+  function removeNewColab(user) {
+    setNewColabs(null);
+    setShow(false);
+    document.getElementById("modal-for-add-people").checked = false;
   }
   //$ For removing collaborators
   const removeCollaborator = async (collaborator) => {
@@ -104,13 +111,11 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
   const addCollaborator = async (collaborator) => {
     try {
       const res = await axios.post("/main/contributor/", {
-        id: user.user_id,
-        has_read_write_access: true,
-        contributor_user: 0,
-        repo_id: 0,
-      });
-
+        contributor_user: newColabs.userId,
+      },{ params:{reponame: query.repoName}});
       setCollaborators((prev) => [...prev, res.data]);
+      document.getElementById("modal-for-add-people").checked = false;
+      toast.success("Collaborator Added Successfully!");
     } catch (error) {
       console.log(error);
     }
@@ -137,7 +142,8 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
             className="modal-toggle"
           />
           <div className="modal">
-            <div className="modal-box  w-11/12 max-w-[700px]">
+            <div className="modal-box relative w-11/12 max-w-[700px]">
+            <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2" onClick={ removeNewColab } >✕</label>
               <h3 className="font-bold text-lg">
                 Add a collaborator to your repository
               </h3>
@@ -229,10 +235,9 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
               {/* //@ Buttons */}
               {show ? (
                 <div className="modal-action">
-                  <button className="btn btn-success">Add collaborator</button>
-                  <label htmlFor="modal-for-add-people" className="btn">
-                    Close
-                  </label>
+                  <button className="btn btn-success" onClick={addCollaborator}>
+                    Add collaborator
+                  </button>
                 </div>
               ) : (
                 ""

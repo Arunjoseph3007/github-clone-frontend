@@ -37,6 +37,7 @@ export default function AuthProvider({ children }) {
 
   const login = async ({ email, password }) => {
     try {
+      localStorage.removeItem('token')
       const res = await axios.post(`/accounts/login/`, { email, password });
       setUser(res.data);
 
