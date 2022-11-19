@@ -22,7 +22,7 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
       .filter((a) => a)
       .forEach((elm) => {
         const name = elm.split("\t").pop();
-        const commitName = elm.replaceAll("\t", " ").split(" ")[2];
+        const commitName = elm.replace("\t", " ").split(" ")[2];
 
         if (elm.split(" ")[1] === "tree") {
           dirs.push({ name, objectId: commitName });
