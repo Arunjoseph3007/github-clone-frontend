@@ -75,6 +75,7 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
 
     return { data: { files, dirs, Readme }, error: null };
   } catch (error) {
+    console.log(error)
     return { data: null, error };
   }
 };
