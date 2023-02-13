@@ -3,6 +3,7 @@ import { gitify } from "./gitify";
 const childProcess = require("child_process");
 
 export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
+  console.log(gitify(repoPath))
   try {
     const result = childProcess.execSync(
       `git ls-tree ${branch} "${dirPath}/"`,
@@ -75,7 +76,7 @@ export const gitLs = (repoPath, dirPath = ".", branch = "main") => {
 
     return { data: { files, dirs, Readme }, error: null };
   } catch (error) {
-    console.log(error)
+    console.log(error.toString())
     return { data: null, error };
   }
 };
