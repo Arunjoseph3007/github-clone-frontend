@@ -9,44 +9,7 @@ import { useState, useDeferredValue, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
 import { toast } from "react-toastify";
-
-const DEFAULT_COLLABORATOR_DATA = [
-  {
-    id: 1,
-    fullName: "Bhavik shah",
-    userName: "bhavikshah2002",
-    role: "Collaborator",
-    image: "https://placeimg.com/80/80/people",
-  },
-  {
-    id: 2,
-    fullName: "Bhavik shah",
-    userName: "bhavikshah2002",
-    role: "Collaborator",
-    image: "https://placeimg.com/80/80/people",
-  },
-  {
-    id: 3,
-    fullName: "Bhavik shah",
-    userName: "bhavikshah2002",
-    role: "Collaborator",
-    image: "https://placeimg.com/80/80/people",
-  },
-  {
-    id: 4,
-    fullName: "Bhavik shah",
-    userName: "bhavikshah2002",
-    role: "Collaborator",
-    image: "https://placeimg.com/80/80/people",
-  },
-  {
-    id: 5,
-    fullName: "Bhavik shah",
-    userName: "bhavikshah2002",
-    role: "Collaborator",
-    image: "https://placeimg.com/80/80/people",
-  },
-];
+import axioss from "axios";
 
 export default function ColaboratorsPage({ collaborators: collabs }) {
   const [collaborators, setCollaborators] = useState(collabs);
@@ -302,7 +265,17 @@ ColaboratorsPage.getLayout = MainRepoLayout;
 
 export const getServerSideProps = async (ctx) => {
   try {
-    // const res = await axios.get("some url");
+    const res = await axioss.get(`${process.env.NEXT_PUBLIC_API}/main/contributor/?reponame=${ctx.params.repoName}&owner_name=${ctx.params.userName}`);
+    const DEFAULT_COLLABORATOR_DATA = [];
+    for (let i = 0; i < res.data.length; i++) {
+       DEFAULT_COLLABORATOR_DATA.push({
+        id:res.data[i].id,
+        fullName: `${res.data[i].contributor_user.first_name} ${res.data[i].contributor_user.last_name}`,
+        userName: res.data[i].contributor_user.username,
+        role: res.data[i].has_read_write_access?"Collaborator":"Viewer",
+        image:`${process.env.NEXT_PUBLIC_API}${res.data[i].contributor_user.profile_pic}`
+       })
+    }
 
     return { props: { collaborators: DEFAULT_COLLABORATOR_DATA } };
   } catch (error) {
