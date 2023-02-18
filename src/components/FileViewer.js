@@ -9,7 +9,7 @@ export default function FileViewer({ fileName, extension, data }) {
   const [downloadUrl, setDownloadUrl] = useState();
 
   useEffect(() => {
-    const blob = new Blob([data], { type: "image/png" });
+    const blob = new Blob([data]);
     const url = window.URL.createObjectURL(blob);
     setDownloadUrl(url);
   }, []);
