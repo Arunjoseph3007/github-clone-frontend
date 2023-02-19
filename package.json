@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.2.3",
     "apexcharts": "^3.36.0",
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",

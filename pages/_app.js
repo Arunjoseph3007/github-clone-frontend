@@ -4,9 +4,6 @@ import "../styles/globals.css";
 import "highlight.js/styles/github.css";
 //@ ProgressBar
 import ProgressBar from "nextjs-progressbar";
-//@ React Query
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/libs/reactQuery";
 //@ SEO Component
 import SEO from "@/components/SEO";
 // @ Toast Notification
@@ -19,7 +16,6 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <SEO />
         <ProgressBar />
@@ -37,7 +33,6 @@ function MyApp({ Component, pageProps }) {
           theme="light"
         />
       </AuthProvider>
-    </QueryClientProvider>
   );
 }
 
