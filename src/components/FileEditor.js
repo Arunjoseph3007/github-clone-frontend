@@ -1,18 +1,16 @@
 import BreadCrumbs from "@/components/BreadCrumbs";
-import { useState } from "react";
 
-export default function FileEditor({ fileName, data }) {
-  const [content, setContent] = useState(data);
-
+export default function FileEditor({ content, setContent }) {
   return (
     <>
       <div className="mockup-code bg-neutral-focus [font-family:monospace_!important]">
         <div className="px-4 flex justify-between items-center pb-3">
           <BreadCrumbs />
         </div>
-        <pre className="flex-1" data-prefix={1} key={10}>
+        <pre className="flex" data-prefix={" "} key={10}>
           <textarea
-          className="flex-1 w-full bg-transparent"
+            rows={Math.min(content.split("\n").length + 10, 30)}
+            className="flex-1 bg-transparent"
             onChange={(e) => setContent(e.target.value)}
             value={content}
           />

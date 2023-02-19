@@ -52,6 +52,9 @@ export default function FileViewer({ fileName, extension, data }) {
         <div className="px-4 flex justify-between items-center pb-3">
           <BreadCrumbs />
           <div className="flex gap-3">
+            <Link href={asPath.replace("/blob/", "/edit/")}>
+              <a className="btn">Edit File</a>
+            </Link>
             <Link href={asPath.replace("/blob/", "/blame/")}>
               <a className="btn">View blame</a>
             </Link>
