@@ -185,8 +185,7 @@ export default function SettingsPage(props) {
                     className="input input-bordered w-full"
                     name="bio"
                     id="bio"
-                    row={3}
-                    columns={3}
+                    rows={3}
                     onChange={handleChange}
                     value={userDetails.bio}
                   />

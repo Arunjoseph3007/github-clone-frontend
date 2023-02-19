@@ -29,7 +29,7 @@ export default function Login() {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col ">
         <div className="avatar">
-          <div div className="w-20 md:w-24">
+          <div className="w-20 md:w-24">
             <img src="/logo4.png" alt="Git" className="object-contain" />
           </div>
         </div>

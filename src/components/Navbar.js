@@ -38,7 +38,7 @@ export default function Navbar() {
             className="input w-full border-none outline-none"
           />
           <button
-            disable={!!!searchTerm}
+            disabled={!searchTerm}
             onClick={handleSearch}
             className="btn-square"
           >

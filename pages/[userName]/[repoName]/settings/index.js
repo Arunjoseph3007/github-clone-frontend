@@ -40,7 +40,6 @@ export default function SettingsPage({ data }) {
         </label>
         <textarea
           rows={5}
-          columns={5}
           value={repoDesc}
           onChange={(e) => setRepoDesc(e.target.value)}
           id="desc-input"
