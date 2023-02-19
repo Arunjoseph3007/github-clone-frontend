@@ -6,16 +6,17 @@ const hashObjectCommand = (content) =>
   `echo '${content}' | git hash-object -w --stdin`;
 
 const updateIndexCommand = (objectHash, filePath) =>
-  `git update-index --cacheinfo 0644 ${objectHash.trimEnd()} "${filePath}"`;
+  `git update-index --add --cacheinfo  0644 ${objectHash.trimEnd()} "${filePath}"`;
 
-const commitHashCommand = (writeTreeHash, commitMsg) =>
-  `git commit-tree ${writeTreeHash.trimEnd()} -p HEAD -m "${commitMsg}"`;
+const commitHashCommand = (writeTreeHash, commitMsg, branch) =>
+  `git commit-tree ${writeTreeHash.trimEnd()} -p ${branch} -m "${commitMsg}"`;
 
-const updateRefCommand = (commitHash) =>
-  `git update-ref HEAD ${commitHash.trimEnd()}`;
+const updateRefCommand = (commitHash, branch) =>
+  `git update-ref ${branch} ${commitHash.trimEnd()}`;
 
 export const gitUpdateFile = (
   repoPath,
+  branch = "main",
   filePath,
   content,
   commitMsg,
@@ -33,8 +34,8 @@ export const gitUpdateFile = (
     const objectHash = run(hashObjectCommand(content));
     const result = run(updateIndexCommand(objectHash, filePath));
     const writeTreeHash = run("git write-tree");
-    const commitHash = run(commitHashCommand(writeTreeHash, commitMsg));
-    const update = run(updateRefCommand(commitHash));
+    const commitHash = run(commitHashCommand(writeTreeHash, commitMsg, branch));
+    const update = run(updateRefCommand(commitHash, branch));
 
     return { data: "Successfull", error: null };
   } catch (error) {

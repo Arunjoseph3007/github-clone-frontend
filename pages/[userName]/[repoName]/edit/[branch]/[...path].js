@@ -13,6 +13,7 @@ export default function EditPage({ data, fileName }) {
   const [content, setContent] = useState(data);
   const router = useRouter();
   const filePath = router.asPath.split("/").slice(5).join("/");
+  const branch = router.query.branch;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,11 +21,12 @@ export default function EditPage({ data, fileName }) {
     try {
       const res = await axios.post(
         `/api/${router.query.userName}/${router.query.repoName}/edit`,
-        { content, commitMsg, filePath }
+        { content, commitMsg, filePath, branch }
       );
 
       if (res.status == 200) {
         toast.success("Commited successfully");
+        router.push(router.asPath.replace("/edit/", "/blob/"));
       }
     } catch (error) {
       console.log(error);
