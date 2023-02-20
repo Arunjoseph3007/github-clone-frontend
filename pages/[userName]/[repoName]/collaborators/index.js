@@ -40,9 +40,11 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
           userName: user.username,
           firstName: user.first_name,
           lastName: user.last_name,
+          fullName: user.first_name+' '+user.last_name,
           email: user.email,
           userId: user.user_id,
-          photoUrl: user.profile_pic,
+          image: user.profile_pic,
+          role: 'Collaborator'
         }))
       );
     } catch (error) {
@@ -82,7 +84,8 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
         },
         { params: { reponame: query.repoName } }
       );
-      setCollaborators((prev) => [...prev, res.data]);
+      console.log(newColabs);
+      setCollaborators((prev) => [...prev,newColabs]);
       document.getElementById("modal-for-add-people").checked = false;
       toast.success("Collaborator Added Successfully!");
     } catch (error) {
@@ -152,7 +155,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                         >
                           <img
                             className="avatar rounded-full h-14 aspect-square"
-                            src={newColabs["photoURL"]}
+                            src={newColabs["image"]}
                             alt="user profile pic"
                           />
                           <div className="flex-1">
@@ -184,6 +187,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                       )}
                       {userSearcResult
                         .filter((u) => u.userName != myUser?.userName)
+                        .filter((u)=>!collaborators.map((c)=>c.userName).includes(u.userName))
                         .map((user) => (
                           <div
                             className="flex w-full justify-between items-center gap-4 border rounded p-2"
@@ -191,7 +195,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                           >
                             <img
                               className="avatar rounded-full h-14 aspect-square"
-                              src={user.photoUrl}
+                              src={user.image}
                               alt="user profile pic"
                             />
                             <div className="flex-1">
@@ -255,7 +259,6 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
               className="flex items-center gap-4 w-full justify-between my-2 py-2 border-b"
               key={i}
             >
-              <input className="checkbox checkbox-xs" type="checkbox" />
               <div className="avatar">
                 <div className="w-12 rounded-full">
                   <img src={collaborator.image} />
@@ -276,7 +279,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
               <button
                 onClick={(e) => removeCollaborator(collaborator)}
                 data-tip={`Once Remove ${collaborator.userName} will no longer have access to the this repository.`}
-                className="btn btn-error flex gap-2 tooltip tooltip-left"
+                className="btn  flex gap-2 tooltip tooltip-left"
               >
                 <RemoveUserIcon />
                 <span>remove</span>
