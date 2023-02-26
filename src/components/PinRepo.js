@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
 import PinnedRepoModal from "./PinnedRepoModal";
 
-function PinRepo({ repos }) {
+function PinRepo({ repos,allRepos }) {
   const { query } = useRouter();
   const { user: myUser } = useUser();
   return (
@@ -38,7 +38,7 @@ function PinRepo({ repos }) {
             </div>
             <input type="checkbox" id="my-modal2" className="modal-toggle" />
             <div className="modal">
-              <PinnedRepoModal />
+              <PinnedRepoModal allRepos={allRepos} />
             </div>
           </>
         )}

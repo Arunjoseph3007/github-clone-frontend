@@ -84,7 +84,7 @@ export default function UserPage({ repos = [], user }) {
         <div className="md:w-[70%] flex flex-col flex-1 mb-[7rem] px-2">
           <div className="flex-1">
             {active ? (
-              <PinRepo repos={repos.slice(0, 4)} />
+              <PinRepo repos={repos.filter((r)=>r.is_pinned)} allRepos={repos} />
             ) : (
               <AllRepo repos={repos} />
             )}
@@ -127,8 +127,9 @@ export const getServerSideProps = async (ctx) => {
       id: repo.repo_id,
       isPublic: repo.is_public,
       createdAt: repo.date_of_creation,
+      is_pinned: repo.is_pinned,
+      is_forked: repo.is_forked,
     }));
-
     const user = repoRes.data.UserDetails;
 
     return {
