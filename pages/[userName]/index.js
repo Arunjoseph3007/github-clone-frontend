@@ -129,6 +129,7 @@ export const getServerSideProps = async (ctx) => {
       createdAt: repo.date_of_creation,
       is_pinned: repo.is_pinned,
       is_forked: repo.is_forked,
+      stars:repo.stars
     }));
     const user = repoRes.data.UserDetails;
 
