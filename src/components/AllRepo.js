@@ -5,7 +5,7 @@ import RepoAllElement from "./RepoAllElement";
 function AllRepo({ repos }) {
   return (
     <>
-      <div className="flex justify-center m-5">
+      <div className="flex justify-center m-5 ">
         <h3 className="font-serif text-2xl underline">All Repositories</h3>
       </div>
       {repos.length === 0 && (
@@ -18,7 +18,7 @@ function AllRepo({ repos }) {
           </Link>
         </div>
       )}
-      <div className="overflow-y-scroll md:max-h-[80vh]">
+      <div className="overflow-y-scroll md:max-h-[80vh] pb-[16rem]">
         {repos.map((repo) => (
           <RepoAllElement
             key={repo.name}
