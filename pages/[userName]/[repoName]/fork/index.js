@@ -1,3 +1,4 @@
+import { useUser } from "@/context/userContext";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import axios from "@/libs/axios";
@@ -11,6 +12,7 @@ export default function ForkPage() {
   const [isPublic, setIsPublic] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const { user } = useUser();
 
   useEffect(() => setRepoName(router.query.repoName), []);
 
@@ -19,14 +21,17 @@ export default function ForkPage() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("jo bhi url", { oldUser: router.query.userName,oldRepo:router.query.repoName });
+      const res = await axios.post(
+        `/main/fork-repo/?forked_from=${router.query.userName}&original_name=${router.query.repoName}`,
+        { repo_name: repoName, is_public: isPublic }
+      );
 
-      toast.success('Repo forked successfully')
+      toast.success("Repo forked successfully");
 
-      // router.push(`/${}`)
+      router.push(`/${user.userName}/${repoName}`);
     } catch (error) {
       toast.error("Couldn't fork repo");
-      console.log(error);
+      console.log("the error id", error);
     }
   };
 
