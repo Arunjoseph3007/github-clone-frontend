@@ -48,11 +48,8 @@ function PinnedRepoModal({allRepos}) {
     }
   };
 
-  // ? Handles Image to URL
-  function uploadImage() {
-    let file = document.getElementById("fileInput").files[0];
-    if (file)
-      setImageDetails({ image: URL.createObjectURL(file), imageFile: file });
+  function pinReposPost(params) {
+    
   }
 
   // & UI
@@ -74,7 +71,7 @@ function PinnedRepoModal({allRepos}) {
       </div>
       <div className="flex justify-end">
 
-      <button className="btn btn-primary">Save</button>
+      <button className="btn btn-primary" onClick={pinReposPost}>Save</button>
       </div>
     </div>
   );
