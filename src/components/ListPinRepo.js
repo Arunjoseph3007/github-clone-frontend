@@ -5,8 +5,8 @@ import { StarIcon } from "@/icons/star";
 function ListPinRepo({RepoName="REPO NAME",stars=5,is_pinned=false}) {
   return (
     <label className="label  cursor-pointer ">
-      <div className="flex justify-start gap-5 ">
-        {<input type="checkbox" defaultChecked={is_pinned}  className="checkbox checkbox-primary" />}
+      <div className="flex items-center justify-start gap-5 ">
+        {<input type="checkbox" defaultChecked={is_pinned}  className="checkbox checkbox-sm checkbox-primary" />}
         <Bookmarks />
         <span className="label-text font-semibold">{RepoName}</span>
       </div>

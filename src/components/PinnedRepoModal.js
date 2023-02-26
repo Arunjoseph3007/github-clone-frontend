@@ -7,7 +7,7 @@ import axios from "@/libs/axios";
 import { PlusIcon } from "@/icons/plus";
 import ListPinRepo from "./ListPinRepo";
 
-function PinnedRepoModal() {
+function PinnedRepoModal({allRepos}) {
   const { user, setUser } = useUser();
   const [userDetails, setUserDetails] = useState({
     firstName: user.firstName,
@@ -67,25 +67,9 @@ function PinnedRepoModal() {
       <h3 className="font-bold text-lg mb-5">Edit Pinned Repositories</h3>
       <div className="h-[25rem] overflow-scroll">
         <div className="form-control overflow-scroll">
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo is_pinned={true}/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-          <ListPinRepo/>
-        
+          { allRepos.map(repo=><ListPinRepo key={repo.id} RepoName={repo.name} stars={3} is_pinned={repo.is_pinned}/>)
+            }
+    
         </div>
       </div>
       <div className="flex justify-end">
