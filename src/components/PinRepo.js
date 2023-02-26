@@ -38,7 +38,7 @@ function PinRepo({ repos,allRepos }) {
             </div>
             <input type="checkbox" id="my-modal2" className="modal-toggle" />
             <div className="modal">
-              <PinnedRepoModal allRepos={allRepos} />
+              <PinnedRepoModal allRepos={allRepos.filter((r)=>r.isPublic)} />
             </div>
           </>
         )}
