@@ -54,7 +54,7 @@ function PinnedRepoModal({ allRepos }) {
             <ListPinRepo
               key={repo.id}
               RepoName={repo.name}
-              stars={3}
+              stars={repo.stars}
               is_pinned={pinList.includes(repo.id)}
               handlePin={() => addOrRemovePin(repo.id)}
             />
