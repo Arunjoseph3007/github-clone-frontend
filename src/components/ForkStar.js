@@ -9,16 +9,16 @@ function ForkStar({ basePath, isStar, Star_Repo }) {
   const { user } = useUser();
   if (!user) return <></>;
   return (
-    <div className="hidden md:flex items-center gap-5 py-3">
+    <div className="gap-2 flex items-center md:gap-5 py-3">
       <Link href={basePath + "fork"}>
-        <button className="btn gap-2">
+        <button className="btn btn-sm md:btn gap-2 items-center ">
           <BranchIcon />
-          <span>fork</span>
+          <span className="hidden md:block">fork</span>
         </button>
       </Link>
-      <button className="btn gap-2" onClick={Star_Repo}>
-        {isStar ? <Starred /> : <StarIcon />}
-        <span>star</span>
+      <button className="btn btn-sm md:btn gap-2 items-center " onClick={Star_Repo}>
+        {isStar ? <Starred /> : <StarIcon  />}
+        <span className="hidden md:block">star</span>
       </button>
     </div>
   );
