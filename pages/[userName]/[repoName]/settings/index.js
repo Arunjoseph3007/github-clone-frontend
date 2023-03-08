@@ -116,6 +116,7 @@ export default function SettingsPage({ data }) {
       </form>
       <hr />
       <button
+        onClick={handleDelete}
         data-tip="This is irrreversible once deleted you won't be able to retireve this repository"
         className="tooltip tooltip-bottom tooltip-error btn btn-error w-full mt-4 text-white tracking-widest"
       >
