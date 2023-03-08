@@ -1,8 +1,10 @@
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import MainRepoLayout from "@/layouts/MainRepoLayout";
+import axios from "@/libs/axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SettingsPage({ data }) {
   const router = useRouter();
@@ -13,12 +15,36 @@ export default function SettingsPage({ data }) {
   // $ Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const { data } = await axios.put(
+        `/main/update-repo-detail/?is_public=${isPublic ? 1 : 0}&repo_name=${
+          router.query.repoName
+        }`
+      );
+
+      toast.success("Repo updated successfully");
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (e) => {
+    try {
+      const { data } = await axios.delete(
+        `/main/update-repo-detail/?repo_name=${router.query.repoName}`
+      );
+
+      toast.success("Repo updated successfully");
+      router.push(`/${router.query.userName}`);
+    } catch (error) {}
   };
 
   return (
     <div className="w-full max-w-[800px] mx-auto mt-3">
       <h2 className="text-4xl font-semibold">Settings</h2>
-      <div className="divider"/>
+      <div className="divider" />
 
       {/* //$ Form */}
       <form onSubmit={handleSubmit} className="form-control ">
