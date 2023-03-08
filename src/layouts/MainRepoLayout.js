@@ -12,10 +12,13 @@ import { PublicIcon } from "@/icons/public";
 import { PullRequestIcon } from "@/icons/pullrequest";
 import { SettingsIcon } from "@/icons/settings";
 import { StarIcon } from "@/icons/star";
+import Starred from "@/icons/starred";
+import axios from "@/libs/axios";
 // @ Utilities
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 
 // $ Array of tabs
 const PAGES = [
@@ -35,9 +38,10 @@ const PAGES = [
 // & UI
 export default function MainRepoLayout(page) {
   const [isPublic, setIsPublic] = useState(true);
+  const [isStar, setIsStar] = useState(false);
+  const [show, setShow] = useState(true);
   const { query, asPath } = useRouter();
   const basePath = `/${query.userName}/${query.repoName}/`;
-
   const getActiveTab = (path) => {
     if (path.includes(basePath + "branches")) return "branches";
     if (path.includes(basePath + "collaborators")) return "collaborators";
@@ -47,6 +51,39 @@ export default function MainRepoLayout(page) {
     if (path.includes(basePath + "graph")) return "graph";
     return "home";
   };
+
+  // Star Post
+  async function Star_Repo() {
+    const userName = query.userName;
+    const repoName = query.repoName;
+
+    if (!isStar) {
+      const res = await axios.post(
+        `/main/star-repo/?user_name=${userName}&repo_name=${repoName}`
+      );
+    } else {
+      const res = await axios.delete(
+        `/main/star-repo-detail/?user_name=${userName}&repo_name=${repoName}`
+      );
+    }
+    getDetails();
+  }
+
+  // Is Starred?
+  async function getDetails() {
+    const userName = query.userName;
+    const repoName = query.repoName;
+    const res = await axios.get(
+      `/main/star-repo-detail/?user_name=${userName}&repo_name=${repoName}`
+    );
+    // if (res.data.is_starred)
+    setIsStar(res.data?.is_starred ? true : false);
+    setIsPublic(res.data.is_public);
+    setShow(localStorage.getItem("token") ? true : false);
+  }
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   const activeTab = useMemo(() => {
     return getActiveTab(asPath);
@@ -68,21 +105,23 @@ export default function MainRepoLayout(page) {
               </h1>
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
             </div>
-
-            <div className="hidden md:flex items-center gap-5 py-3">
-              <Link href={basePath + "fork"}>
-                <button className="btn gap-2">
-                  <BranchIcon />
-                  <span>fork</span>
+            {show ? (
+              <div className="hidden md:flex items-center gap-5 py-3">
+                <Link href={basePath + "fork"}>
+                  <button className="btn gap-2">
+                    <BranchIcon />
+                    <span>fork</span>
+                  </button>
+                </Link>
+                <button className="btn gap-2" onClick={Star_Repo}>
+                  {isStar ? <Starred /> : <StarIcon />}
+                  <span>star</span>
                 </button>
-              </Link>
-              <button className="btn gap-2">
-                <StarIcon />
-                <span>star</span>
-              </button>
-            </div>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-
           {/* //? Tabs */}
           <div className="tabs mt-4 border-b-4 overflow-y-scroll overflow-x-hidden whitespace-nowrap">
             {PAGES.map(({ icon: PageIcon, ...page }) => (
