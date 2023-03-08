@@ -21,13 +21,14 @@ export default function Navbar() {
       {/* //@ Left section */}
       <div className="flex-1 ">
         <Link href="/">
-          <>
-            <img src="/logo4.png" className="w-12" />
-            <a className="btn btn-ghost normal-case text-xl hidden md:flex">
-              GitBase
-            </a>
-          </>
+          <img src="/logo4.png" className="w-12" />
         </Link>
+        <Link href="/">
+          <a className="btn btn-ghost normal-case text-xl hidden md:flex">
+            GitBase
+          </a>
+        </Link>
+
         {/* //@ Search bar */}
         <div className="input-group gap-4">
           <input
@@ -52,7 +53,11 @@ export default function Navbar() {
         <ul className="menu menu-horizontal p-0">
           <li tabIndex="0">
             <div className="hidden md:flex">
-            <Link href="/new"><button><PlusIcon /></button></Link>
+              <Link href="/new">
+                <button>
+                  <PlusIcon />
+                </button>
+              </Link>
             </div>
             {user ? (
               <div className="dropdown dropdown-end text-[0.5rem] md:text-[1rem]">

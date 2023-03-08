@@ -1,5 +1,6 @@
 // @ Components
 import Footer from "@/components/Footer";
+import ForkStar from "@/components/ForkStar";
 import Navbar from "@/components/Navbar";
 // @ cons
 import { BranchIcon } from "@/icons/branch";
@@ -11,8 +12,7 @@ import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import { PullRequestIcon } from "@/icons/pullrequest";
 import { SettingsIcon } from "@/icons/settings";
-import { StarIcon } from "@/icons/star";
-import Starred from "@/icons/starred";
+
 import axios from "@/libs/axios";
 // @ Utilities
 import Link from "next/link";
@@ -105,22 +105,9 @@ export default function MainRepoLayout(page) {
               </h1>
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
             </div>
-            {show ? (
-              <div className="hidden md:flex items-center gap-5 py-3">
-                <Link href={basePath + "fork"}>
-                  <button className="btn gap-2">
-                    <BranchIcon />
-                    <span>fork</span>
-                  </button>
-                </Link>
-                <button className="btn gap-2" onClick={Star_Repo}>
-                  {isStar ? <Starred /> : <StarIcon />}
-                  <span>star</span>
-                </button>
-              </div>
-            ) : (
-              <></>
-            )}
+            
+              <ForkStar basePath={basePath} isStar={isStar} Star_Repo={Star_Repo}/>
+            
           </div>
           {/* //? Tabs */}
           <div className="tabs mt-4 border-b-4 overflow-y-scroll overflow-x-hidden whitespace-nowrap">
