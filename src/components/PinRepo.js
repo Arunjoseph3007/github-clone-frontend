@@ -5,6 +5,8 @@ import { useUser } from "@/context/userContext";
 import PinnedRepoModal from "./PinnedRepoModal";
 
 function PinRepo({ repos,allRepos }) {
+  if (allRepos.length==0)
+    return<></>
   const { query } = useRouter();
   const { user: myUser } = useUser();
   return (
