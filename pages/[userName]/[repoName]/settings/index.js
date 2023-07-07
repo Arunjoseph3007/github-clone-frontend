@@ -54,6 +54,7 @@ export default function SettingsPage({ data }) {
         <input
           value={repoName}
           onChange={(e) => setRepoName(e.target.value)}
+          readOnly={true}
           id="repo-name-input"
           type="text"
           pattern="[a-zA-Z0-9\-_]{4,32}"

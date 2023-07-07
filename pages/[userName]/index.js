@@ -60,7 +60,7 @@ export default function UserPage() {
       toast.error("Something Went Wrong");
     }
   }
-  useEffect(()=>{fetchDetails()}, []);
+  useEffect(()=>{fetchDetails()}, [query.userName]);
 
   return (
     <div className="md:h-screen flex flex-col">
