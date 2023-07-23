@@ -7,6 +7,8 @@ import PinnedRepoModal from "./PinnedRepoModal";
 function PinRepo({ repos,allRepos }) {
   const { query } = useRouter();
   const { user: myUser } = useUser();
+  if (allRepos.length==0)
+    return<></>
   return (
     <>
       <div className="flex justify-between m-5">

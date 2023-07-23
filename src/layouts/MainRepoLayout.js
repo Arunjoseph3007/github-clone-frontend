@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 const PAGES = [
   { title: "home", icon: <CodeIcon />, link: "" },
   { title: "branches", icon: <BranchIcon />, link: "branches" },
-  { title: "Pull requests", icon: <PullRequestIcon />, link: "pulls" },
+  // { title: "Pull requests", icon: <PullRequestIcon />, link: "pulls" },
   { title: "commits", icon: <CommitIcon />, link: "commits/main" },
   { title: "graph", icon: <GraphIcon />, link: "graph" },
   {
