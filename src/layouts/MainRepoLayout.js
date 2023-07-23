@@ -8,6 +8,7 @@ import { CodeIcon } from "@/icons/code";
 import { CollaboratorsIcon } from "@/icons/collaborators";
 import { CommitIcon } from "@/icons/commit";
 import { GraphIcon } from "@/icons/graph";
+import { LaunchIcon } from "@/icons/launch";
 import { LockIcon } from "@/icons/lock";
 import { PublicIcon } from "@/icons/public";
 import { PullRequestIcon } from "@/icons/pullrequest";
@@ -105,12 +106,15 @@ export default function MainRepoLayout(page) {
               </h1>
               <span className="badge">{isPublic ? "Public" : "Private"}</span>
             </div>
-            
-              <ForkStar basePath={basePath} isStar={isStar} Star_Repo={Star_Repo}/>
-            
+
+            <ForkStar
+              basePath={basePath}
+              isStar={isStar}
+              Star_Repo={Star_Repo}
+            />
           </div>
           {/* //? Tabs */}
-          <div className="tabs mt-4 border-b-4 overflow-y-scroll overflow-x-hidden whitespace-nowrap">
+          <div className="tabs mt-4 border-b-4 overflow-y-scroll overflow-x-hidden  whitespace-nowrap">
             {PAGES.map(({ icon: PageIcon, ...page }) => (
               <Link href={basePath + page.link} key={page.title}>
                 <a
@@ -127,6 +131,19 @@ export default function MainRepoLayout(page) {
           </div>
         </section>
         {page}
+
+        <Link
+          href={`/${query.userName}/${query.repoName}/launch/${
+            query.branch || query.commitId || "main"
+          }`}
+        >
+          <a
+            data-tip="LAUNCH"
+            className="fixed bg-gray-200 bottom-5 right-5 p-3 shadow-[0px_6px_8px_#00000055] rounded-full tooltip tooltip-success tooltip-left before:font-bold before:text-white"
+          >
+            <LaunchIcon />
+          </a>
+        </Link>
       </div>
       <Footer />
     </div>
