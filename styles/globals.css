@@ -54,3 +54,8 @@ pre::selection,
 pre *::selection {
   background-color: black;
 }
+
+#terminal * {
+  font-family: "Roboto Mono", "Sans Mono", "Consolas", "Courier", monospace;
+  font-weight: bold;
+}

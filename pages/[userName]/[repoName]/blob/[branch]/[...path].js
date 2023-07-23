@@ -4,8 +4,9 @@ import MainRepoLayout from "@/layouts/MainRepoLayout";
 import { gitShow } from "@/utils/gitShow";
 
 export default function BlobPage({ data, fileName }) {
-
-  const extenstion = fileName.split(".").pop();
+  const extenstion = fileName.includes(".")
+    ? fileName.split(".").pop()
+    : fileName;
 
   return (
     <div>

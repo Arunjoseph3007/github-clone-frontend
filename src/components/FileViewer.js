@@ -70,7 +70,11 @@ export default function FileViewer({ fileName, extension, data }) {
             data-prefix={i}
             key={i}
           >
-            <code dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
+            <code
+              dangerouslySetInnerHTML={{
+                __html: syntaxHighlight(line, extension),
+              }}
+            />
           </pre>
         ))}
       </div>
