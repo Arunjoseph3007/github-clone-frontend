@@ -9,17 +9,43 @@ import { useState, useDeferredValue, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@/context/userContext";
 import { toast } from "react-toastify";
-import axioss from "axios";
 
-export default function ColaboratorsPage({ collaborators: collabs }) {
-  const [collaborators, setCollaborators] = useState(collabs);
+export default function ColaboratorsPage() {
+  const [collaborators, setCollaborators] = useState([]);
   const [userSearchTerm, setUserSearchTerm] = useState("");
   const [userSearcResult, setUserSearchResult] = useState([]);
   const deferedUserSearchTerm = useDeferredValue(userSearchTerm);
   const { user: myUser } = useUser();
   const [newColabs, setNewColabs] = useState();
   const [show, setShow] = useState(false);
-  const { query, asPath } = useRouter();
+  const { query } = useRouter();
+
+  useEffect(() => {
+    const getCollaborators = async () => {
+      if (!query.repoName || !query.userName) return;
+
+      try {
+        const res = await axios.get("/main/contributor/", {
+          params: { reponame: query.repoName, owner_name: query.userName },
+        });
+
+        setCollaborators(
+          res.data.map((collab) => ({
+            id: collab.id,
+            fullName: `${collab.contributor_user.first_name} ${collab.contributor_user.last_name}`,
+            userName: collab.contributor_user.username,
+            role: collab.has_read_write_access ? "Collaborator" : "Viewer",
+            image: `${process.env.NEXT_PUBLIC_API}${collab.contributor_user.profile_pic}`,
+          }))
+        );
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+
+    getCollaborators();
+  }, [query]);
+
   useEffect(() => {
     getSearchUserResult();
   }, [deferedUserSearchTerm]);
@@ -40,11 +66,11 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
           userName: user.username,
           firstName: user.first_name,
           lastName: user.last_name,
-          fullName: user.first_name+' '+user.last_name,
+          fullName: user.first_name + " " + user.last_name,
           email: user.email,
           userId: user.user_id,
-          image: user.profile_pic,
-          role: 'Collaborator'
+          image: user.profile_pic?.replace("http://", "https://"),
+          role: "Collaborator",
         }))
       );
     } catch (error) {
@@ -56,11 +82,13 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
     setNewColabs(user);
     setShow(true);
   }
+
   function removeNewColab(user) {
     setNewColabs(null);
     setShow(false);
     document.getElementById("modal-for-add-people").checked = false;
   }
+
   //$ For removing collaborators
   const removeCollaborator = async (collaborator) => {
     try {
@@ -85,7 +113,7 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
         { params: { reponame: query.repoName } }
       );
       console.log(newColabs);
-      setCollaborators((prev) => [...prev,newColabs]);
+      setCollaborators((prev) => [...prev, newColabs]);
       document.getElementById("modal-for-add-people").checked = false;
       toast.success("Collaborator Added Successfully!");
     } catch (error) {
@@ -187,7 +215,12 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
                       )}
                       {userSearcResult
                         .filter((u) => u.userName != myUser?.userName)
-                        .filter((u)=>!collaborators.map((c)=>c.userName).includes(u.userName))
+                        .filter(
+                          (u) =>
+                            !collaborators
+                              .map((c) => c.userName)
+                              .includes(u.userName)
+                        )
                         .map((user) => (
                           <div
                             className="flex w-full justify-between items-center gap-4 border rounded p-2"
@@ -294,24 +327,4 @@ export default function ColaboratorsPage({ collaborators: collabs }) {
 
 ColaboratorsPage.getLayout = MainRepoLayout;
 
-export const getServerSideProps = async (ctx) => {
-  try {
-    const res = await axioss.get(
-      `${process.env.NEXT_PUBLIC_API}/main/contributor/?reponame=${ctx.params.repoName}&owner_name=${ctx.params.userName}`
-    );
-    const DEFAULT_COLLABORATOR_DATA = [];
-    for (let i = 0; i < res.data.length; i++) {
-      DEFAULT_COLLABORATOR_DATA.push({
-        id: res.data[i].id,
-        fullName: `${res.data[i].contributor_user.first_name} ${res.data[i].contributor_user.last_name}`,
-        userName: res.data[i].contributor_user.username,
-        role: res.data[i].has_read_write_access ? "Collaborator" : "Viewer",
-        image: `${process.env.NEXT_PUBLIC_API}${res.data[i].contributor_user.profile_pic}`,
-      });
-    }
-
-    return { props: { collaborators: DEFAULT_COLLABORATOR_DATA } };
-  } catch (error) {
-    return { notFound: true };
-  }
-};
+export const getServerSideProps = async () => ({ props: {} });
