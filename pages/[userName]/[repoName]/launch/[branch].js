@@ -237,6 +237,8 @@ export const getServerSideProps = async (ctx) => {
 
   const { data, error } = getGetFs(pathName, branch);
 
+  console.log({data,error})
+
   if (error) return { notFound: true };
 
   return { props: data };
