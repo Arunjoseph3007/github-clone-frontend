@@ -1,7 +1,7 @@
 <div align="center">
   <a href="http://gitbase.sytes.net">
     <img
-      src="http://gitbase.sytes.net/logo4.png"
+      src="./public/logo4.png"
       alt="Gitbase Logo"
       height="64"
     />
@@ -21,8 +21,8 @@
   </p>
   <p>
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](README.md) 
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fhoppscotch.io&logo=hoppscotch)](http://gitbase.sytes.net) 
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](README.md)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fhoppscotch.io&logo=hoppscotch)](http://gitbase.sytes.net)
 
   </p>
   <p>
@@ -54,20 +54,19 @@
 ## Technology used
 
 - Frontend
-    - React (Frontend Framework)
-    - NextJS (Server Rendering)
-    - Tailwindcss (CSS Framework)
-    - DaisyUI (UI Framework)
+  - React (Frontend Framework)
+  - NextJS (Server Rendering)
+  - Tailwindcss (CSS Framework)
+  - DaisyUI (UI Framework)
 - Backend
-    - Django
-    - Django rest Framework
+  - Django
+  - Django rest Framework
 - Server
-    - Apache (Web server)
-    - Google Cloud Platform (Cloud server)
+  - Apache (Web server)
+  - Google Cloud Platform (Cloud server)
 
 ## Authors
 
 - [@bhavikshah2002](https://www.github.com/bhavikshah2002)
 - [@Arunjoseph3007](https://www.github.com/Arunjoseph3007)
 - [@Arpit472002](https://www.github.com/Arpit472002)
-
