@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./
+      args:
+        NEXT_PUBLIC_API: "http://localhost:8080"
+        GIT_ROOT_DIRECTORY: "/var/www/git/"
+    ports:
+      - 8000:8000
+    volumes:
+      - git-repos:/var/www/git
+    depends_on:
+      - django
+
+  django:
+    image: gitbase-backend:latest
+    volumes:
+      - git-repos:/var/www/git
+    ports:
+      - 8080:8080
+
+volumes:
+  git-repos:

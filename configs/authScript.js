@@ -13,7 +13,8 @@ const authsearchParams = new URLSearchParams({
   repo_name: repo,
   owner_name: owner,
 });
-const authUrl = new URL(`${process.env.NEXT_PUBLIC_API}/main/cli-auth/`);
+// TODO get this from env
+const authUrl = new URL(`http://django:8080/main/cli-auth/`);
 authUrl.search = authsearchParams.toString();
 
 const handleResp = (s) => {
