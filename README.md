@@ -45,6 +45,9 @@
   </p>
 </div>
 
+> NOTE:
+> If you cant tell already this is not a production ready software. This was meant for understanding the basics of how remote git servers, especially their authentication systems works. 
+
 ## Features
 
 - You can make remote copies of your repositories.
@@ -64,6 +67,18 @@
 - Server
   - Apache (Web server)
   - Google Cloud Platform (Cloud server)
+
+## Build
+
+### Entire Project
+```sh
+docker-compose up --build
+```
+
+### Just Frontend
+```sh
+docker build -t gitbase-frontend:latest .
+```
 
 ## Authors
 

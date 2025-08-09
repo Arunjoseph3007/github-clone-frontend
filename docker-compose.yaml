@@ -18,6 +18,8 @@ services:
     image: gitbase-backend:latest
     volumes:
       - git-repos:/var/www/git
+    environment:
+      EMAIL_VERIFICATION_ENABLED: False
     ports:
       - 8080:8080
 
